@@ -8,13 +8,20 @@ import {
   Modal,
   ToastAndroid,
   TextInput,
+  Animated,
 } from "react-native";
 import { Card, Icon, Item, Right, Toast } from "native-base";
 import questions from "../Components/data/questionData";
 import { RadioButton } from "react-native-paper";
+import { Rating, AirbnbRating } from "react-native-ratings";
 import { Button } from "native-base";
+
 export default function Questions({ navigation }) {
-  const [value, setValue] = useState("first");
+  const [q1, setQ1] = useState("first");
+  const [q2, setQ2] = useState("first");
+  const [q3, setQ3] = useState("first");
+  const [q4, setQ4] = useState("first");
+  const [q5, setQ5] = useState("first");
   const [modal, setModal] = useState(false);
 
   function Toast() {
@@ -30,9 +37,27 @@ export default function Questions({ navigation }) {
           >
             <Text style={{ fontSize: 24 }}>{item.question}</Text>
             <View style={{ marginHorizontal: "8%" }}>
-              <RadioButton.Group
-                onValueChange={(value) => setValue(value)}
-                value={value}
+              <Rating
+                showRating
+                onFinishRating={this.ratingCompleted}
+                style={{ paddingVertical: 10 }}
+              />
+
+              {/*     <RadioButton.Group
+                onValueChange={(value) => {
+                  if (item.Key == 1) {
+                    setQ1(value);
+                  } else if (item.key == 2) {
+                    setQ2(value);
+                  } else if (item.key == 3) {
+                    setQ3(value);
+                  } else if (item.key == 4) {
+                    setQ4(value);
+                  } else if (item.key == 5) {
+                    setQ5(value);
+                  }
+                }}
+                value={}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <RadioButton value="first" />
@@ -50,7 +75,7 @@ export default function Questions({ navigation }) {
                   <RadioButton value="forth" />
                   <Text>Bad</Text>
                 </View>
-              </RadioButton.Group>
+              </RadioButton.Group>*/}
             </View>
           </Card>
         )}
@@ -126,7 +151,7 @@ export default function Questions({ navigation }) {
             onPress={() => {
               Toast();
               setModal(false);
-              navigation.popToTop();
+              navigation.pop();
             }}
           >
             <Text style={{ color: "#fff", fontSize: 20 }}>Submitted</Text>
