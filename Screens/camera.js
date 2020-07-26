@@ -5,17 +5,24 @@ import {
   TouchableOpacity,
   AsyncStorage,
   Modal,
-  Image,
+  ImageBackground,
+  Button,
 } from "react-native";
+import ViewShort from "react-native-view-shot";
 import { Camera } from "expo-camera";
 import { Icon } from "native-base";
 import { TouchableRipple } from "react-native-paper";
-export default function App() {
+
+export default function App({ navigation }) {
   const camRef = useRef(null);
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [photo, setPhoto] = useState(null);
   const [modal, setModal] = useState(false);
+  const [modal1, setModal1] = useState(false);
+  const shortRef = useRef(null);
+  const [screenShort, setScreenShort] = useState(null);
+  const [date, setDate] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -28,7 +35,17 @@ export default function App() {
     const data = await camRef.current.takePictureAsync();
     setPhoto(data.uri);
     setModal(true);
+    setDate(Date());
     console.log(data);
+  }
+
+  async function takeScreenShot() {
+    await shortRef.current.capture().then((uri) => {
+      setScreenShort(uri);
+      setModal(false);
+      setModal1(true);
+      console.log("do something with ", uri);
+    });
   }
 
   if (hasPermission === null) {
@@ -69,13 +86,31 @@ export default function App() {
           }}
         >
           <View
-            style={{ flex: 1, alignSelf: "center", justifyContent: "center" }}
+            style={{
+              flex: 1,
+              alignSelf: "center",
+              justifyContent: "center",
+              width: "100%",
+            }}
           >
-            <Text style={{ fontSize: 30, margin: "3%" }}>Preview</Text>
-            <Image
-              source={{ uri: photo }}
-              style={{ width: 300, height: 400 }}
-            />
+            <ViewShort
+              ref={shortRef}
+              options={{ format: "jpg", quality: 0.9 }}
+              style={{ flex: 1 }}
+            >
+              <ImageBackground source={{ uri: photo }} style={{ flex: 1 }}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: "red",
+                    top: 40,
+                    marginHorizontal: "2%",
+                  }}
+                >
+                  {date}
+                </Text>
+              </ImageBackground>
+            </ViewShort>
             <TouchableOpacity
               style={{
                 width: "60%",
@@ -88,15 +123,34 @@ export default function App() {
                 margin: "3%",
                 padding: "4%",
               }}
-              onPress={() => {
-                setModal(false);
-              }}
+              onPress={takeScreenShot}
             >
               <Text style={{ color: "#fff", fontSize: 20, fontWeight: "bold" }}>
                 Okay
               </Text>
             </TouchableOpacity>
           </View>
+        </Modal>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={modal1}
+          style={{
+            alignSelf: "center",
+            justifyContent: "center",
+            flex: 1,
+          }}
+        >
+          <ImageBackground
+            style={{ flex: 1, width: "100%" }}
+            source={{ uri: screenShort }}
+          />
+          <Button
+            title="Back"
+            onPress={() => {
+              setModal1(false);
+            }}
+          />
         </Modal>
       </Camera>
     </View>

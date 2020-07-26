@@ -17,7 +17,7 @@ export default function CurrLocation({ navigation }) {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
       setLoading(false);
-      navigation.push("Camera");
+      navigation.push("Scanner");
     })();
   }, []);
 

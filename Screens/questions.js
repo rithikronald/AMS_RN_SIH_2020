@@ -36,14 +36,14 @@ export default function Questions({ navigation }) {
             style={{ flex: 1, margin: "3%", borderRadius: 16, padding: "3%" }}
           >
             <Text style={{ fontSize: 24 }}>{item.question}</Text>
-            <View style={{ marginHorizontal: "8%" }}>
-              <Rating
-                showRating
-                onFinishRating={this.ratingCompleted}
-                style={{ paddingVertical: 10 }}
-              />
-
-              {/*     <RadioButton.Group
+            <View
+              style={{
+                marginHorizontal: "4%",
+                flexDirection: "row",
+                marginVertical: "2%",
+              }}
+            >
+              <RadioButton.Group
                 onValueChange={(value) => {
                   if (item.Key == 1) {
                     setQ1(value);
@@ -57,25 +57,59 @@ export default function Questions({ navigation }) {
                     setQ5(value);
                   }
                 }}
-                value={}
+                value={q1}
               >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginHorizontal: "2%",
+                  }}
+                >
                   <RadioButton value="first" />
-                  <Text>Vgood</Text>
+                  <Text>1</Text>
                 </View>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginHorizontal: "2%",
+                  }}
+                >
                   <RadioButton value="second" />
-                  <Text>Good</Text>
+                  <Text>2</Text>
                 </View>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginHorizontal: "2%",
+                  }}
+                >
                   <RadioButton value="third" />
-                  <Text>Satisfied</Text>
+                  <Text>3</Text>
                 </View>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginHorizontal: "2%",
+                  }}
+                >
                   <RadioButton value="forth" />
-                  <Text>Bad</Text>
+                  <Text>4</Text>
                 </View>
-              </RadioButton.Group>*/}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginHorizontal: "2%",
+                  }}
+                >
+                  <RadioButton value="forth" />
+                  <Text>5</Text>
+                </View>
+              </RadioButton.Group>
             </View>
           </Card>
         )}
