@@ -27,11 +27,12 @@ export default function CurrLocation({ navigation }) {
     });
   }, []);
 
-  let text = "Getting your location .....";
+  let text = "Getting your location ...";
   if (err) {
     text = err;
   } else if (location) {
     text = JSON.stringify(location);
+    console.log(text);
   }
 
   return (
