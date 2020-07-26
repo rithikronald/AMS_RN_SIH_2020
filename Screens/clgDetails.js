@@ -5,14 +5,14 @@ import { Icon } from "native-base";
 
 export default function clgDetails({ route, navigation }) {
   const { title } = route.params;
-  const { address } = route.params;
+  const { schoolId } = route.params;
   return (
     <SafeAreaView style={{ flex: 1, padding: "2%", top: 20 }}>
       <Text style={{ fontSize: 30, fontWeight: "600" }}>{title}</Text>
       <View style={{ flex: 1, marginHorizontal: "3%", marginVertical: "15%" }}>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Address:</Text>
         <Text style={{ marginLeft: "3%", margin: "3%", fontSize: 16 }}>
-          {address}
+          {schoolId}
         </Text>
         <TouchableOpacity
           style={{
