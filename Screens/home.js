@@ -2,16 +2,14 @@ import React, { useState, useEffect } from "react";
 import { FlatList, SafeAreaView } from "react-native";
 import Hcard from "../Components/H_card";
 import Clg from "../Components/data/data";
-import url from "../assets/constants";
+var url = require("../assets/constants").url;
 const axios = require("axios");
 export default function home({ navigation }) {
   const [schoolsList, setSchools] = useState([]);
 
   useEffect(() => {
     axios
-      .get(
-        "http://192.168.1.7:5000/meo/getschools/da4a679b-4416-43a1-925f-c94a74b16c1b"
-      )
+      .get(url + "getschools/da4a679b-4416-43a1-925f-c94a74b16c1b")
       .then((d) => {
         setSchools(d.data);
         console.log(schoolsList);
@@ -31,7 +29,7 @@ export default function home({ navigation }) {
             logo={item.photo}
             onPress={() => {
               navigation.push("ClgDetails", {
-                title: item.schoolName,
+                schoolName: item.schoolName,
                 schoolId: item.schoolId,
               });
             }}

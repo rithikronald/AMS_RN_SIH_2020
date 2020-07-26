@@ -5,7 +5,7 @@ import Home from "../Screens/home";
 import ClgDetails from "../Screens/clgDetails";
 import Location from "../Screens/location";
 import Scanner from "../Screens/scanner";
-import Camera from "../Screens/camera";
+// import Camera from "../Screens/camera";
 import Facilities from "../Screens/facilities";
 import Questions from "../Screens/questions";
 
@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 export default function homeStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Questions">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
           component={Home}
@@ -50,15 +50,7 @@ export default function homeStack() {
             headerTintColor: "#fff",
           }}
         />
-        <Stack.Screen
-          name="Camera"
-          component={Camera}
-          options={{
-            headerStyle: { backgroundColor: "#222831" },
-            headerTitleStyle: { color: "#fff" },
-            headerTintColor: "#fff",
-          }}
-        />
+
         <Stack.Screen
           name="Facilities"
           component={Facilities}
@@ -81,3 +73,14 @@ export default function homeStack() {
     </NavigationContainer>
   );
 }
+/*
+<Stack.Screen
+          name="Camera"
+          component={Camera}
+          options={{
+            headerStyle: { backgroundColor: "#222831" },
+            headerTitleStyle: { color: "#fff" },
+            headerTintColor: "#fff",
+          }}
+        />
+*/
