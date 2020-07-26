@@ -6,6 +6,10 @@ export default function CurrLocation({ navigation }) {
   const [location, setLocation] = useState(null);
   const [err, setErr] = useState(null);
   const [loading, setLoading] = useState(true);
+  // const [userLatitude, setLatitude] = useState(0);
+  // const [userLongitude, setLongitude] = useState(0);
+  var userLatitude;
+  var userLongitude;
 
   useEffect(() => {
     (async () => {
@@ -16,8 +20,16 @@ export default function CurrLocation({ navigation }) {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      // setLatitude(location.coords.latitude);
+      // setLongitude(location.coords.longitude);
+      userLatitude = location.coords.latitude;
+      userLongitude = location.coords.longitude;
       setLoading(false);
-      navigation.push("Scanner");
+
+      navigation.push("Scanner", {
+        meoLatitude: userLatitude,
+        meoLongitude: userLongitude,
+      });
     })();
   }, []);
 
@@ -31,8 +43,9 @@ export default function CurrLocation({ navigation }) {
   if (err) {
     text = err;
   } else if (location) {
-    text = JSON.stringify(location);
-    console.log(text);
+    text = JSON.stringify(location.coords);
+    console.log(location.coords.latitude);
+    console.log(location.coords.longitude);
   }
 
   return (

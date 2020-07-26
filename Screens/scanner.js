@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button, BackHandler } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-
-export default function App({ navigation }) {
+var geohash = require("ngeohash");
+export default function App({ route, navigation }) {
+  const { meoLatitude, meoLongitude } = route.params;
   const [hasPermission, setHasPermission] = useState(null);
+  // const [userGeohash, setuserGeohash] = useState("");
   const [scanned, setScanned] = useState(false);
-
+  var userGeohash;
+  function strcmp(a, b) {
+    return a < b ? -1 : a > b ? 1 : 0;
+  }
   useEffect(() => {
+    // setuserGeohash(geohash.encode(meoLatitude, meoLongitude));
+    userGeohash = geohash.encode(meoLatitude, meoLongitude).substring(0, 4);
+    console.log(geohash.encode(meoLatitude, meoLongitude));
+
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
@@ -20,8 +29,17 @@ export default function App({ navigation }) {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
+    var result = "please go to the correct venue to proceed.";
     setScanned(true);
-    alert(JSON.stringify(data));
+    if (strcmp(data.substring(0, 4), userGeohash) == 0) {
+      console.log("Geohash verified successfully.!");
+      navigation.navigate("ClgDetails", {
+        schoolName: "ds",
+        schoolId: "fdjks",
+      });
+    }
+    navigation.navigate("Home");
+    alert(data);
   };
 
   if (hasPermission === null) {

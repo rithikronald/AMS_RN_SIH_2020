@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Text,
   View,
+  ScrollView,
 } from "react-native";
 const axios = require("axios");
 var url = require("../assets/constants").url;
@@ -30,51 +31,56 @@ export default function Facilities({ navigation }) {
   }, []);
   return (
     <SafeAreaView style={{ flex: 1, padding: "2%", top: 20 }}>
-      {categories.map((item, i) => {
-        return (
-          <TouchableOpacity
-            style={{ opacity: 16 }}
-            onPress={() => {
-              navigation.push("Questions");
-            }}
-          >
-            <Card
-              style={{
-                padding: "3%",
-                borderRadius: 10,
-                flexDirection: "row",
-                alignItems: "center",
+      <ScrollView>
+        {categories.map((item, i) => {
+          return (
+            <TouchableOpacity
+              key={item._id}
+              style={{ opacity: 1, marginBottom: 5 }}
+              onPress={() => {
+                navigation.push("Questions", {
+                  categoryName: item.categoryName,
+                });
               }}
             >
-              <View style={{ flexDirection: "row" }}>
-                <Icon
-                  type="FontAwesome"
-                  name={item.icon}
-                  style={{
-                    fontSize: 50,
-                    color: "#4a3f35",
-                    backgroundColor: "#febf63",
-                    padding: "2%",
-                    borderRadius: 20,
-                  }}
-                />
-                <Text
-                  style={{
-                    fontSize: 20,
-                    fontWeight: "600",
-                    flexWrap: "wrap",
-                    flex: 1,
-                    marginLeft: "4%",
-                    alignSelf: "center",
-                  }}
-                >
-                  {item.categoryName}
-                </Text>
-              </View>
-            </Card>
-          </TouchableOpacity>
-        );
-      })}
+              <Card
+                style={{
+                  padding: "3%",
+                  borderRadius: 10,
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <Icon
+                    type="FontAwesome"
+                    name={item.icon}
+                    style={{
+                      fontSize: 50,
+                      color: "#4a3f35",
+                      backgroundColor: "#febf63",
+                      padding: "2%",
+                      borderRadius: 20,
+                    }}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontWeight: "600",
+                      flexWrap: "wrap",
+                      flex: 1,
+                      marginLeft: "4%",
+                      alignSelf: "center",
+                    }}
+                  >
+                    {item.categoryName}
+                  </Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
     </SafeAreaView>
   );
 }
