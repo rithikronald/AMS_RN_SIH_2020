@@ -14,24 +14,41 @@ import { Card, Icon, Item, Right, Toast } from "native-base";
 import questions from "../Components/data/questionData";
 import { RadioButton } from "react-native-paper";
 import { Rating, AirbnbRating } from "react-native-ratings";
-import { Button } from "native-base";
+import { Radio } from "native-base";
 
 export default function Questions({ navigation }) {
-  const [q1, setQ1] = useState("first");
-  const [q2, setQ2] = useState("first");
-  const [q3, setQ3] = useState("first");
-  const [q4, setQ4] = useState("first");
-  const [q5, setQ5] = useState("first");
+  const [answersState, setAnswersState] = useState([
+    ...questions.map((q) =>
+      Object.assign({
+        answer: null,
+        question: q.question,
+        qType: q.qType,
+        total: 8,
+      })
+    ),
+  ]);
+
+  const [checked, setChecked] = useState(true);
+
   const [modal, setModal] = useState(false);
 
   function Toast() {
     ToastAndroid.show("Report Submitted Sucessfully ", ToastAndroid.SHORT);
   }
+  function allChecked() {
+    answersState.map((item) => {
+      setModal(item.answer != null ? true : false);
+    });
+  }
+
+  useEffect(() => {
+    console.log(answersState);
+  }, [answersState]);
   return (
     <View style={{ flex: 1, padding: "2%" }}>
       <FlatList
-        data={questions}
-        renderItem={({ item }) => (
+        data={[...questions]}
+        renderItem={({ item, index }) => (
           <Card
             style={{ flex: 1, margin: "3%", borderRadius: 16, padding: "3%" }}
           >
@@ -43,73 +60,134 @@ export default function Questions({ navigation }) {
                 marginVertical: "2%",
               }}
             >
-              <RadioButton.Group
-                onValueChange={(value) => {
-                  if (item.Key == 1) {
-                    setQ1(value);
-                  } else if (item.key == 2) {
-                    setQ2(value);
-                  } else if (item.key == 3) {
-                    setQ3(value);
-                  } else if (item.key == 4) {
-                    setQ4(value);
-                  } else if (item.key == 5) {
-                    setQ5(value);
+              {/*<RadioButton
+                value="1"
+                status={() => {
+                  if (item.key == "1") {
+                    q1 == "1" ? "checked" : "unchecked";
+                  } else {
+                    q2 == "1" ? "checked" : "unchecked";
                   }
                 }}
-                value={q1}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginHorizontal: "2%",
+                onPress={() => {
+                  if (item.key == "1") {
+                    setQ1("1");
+                  } else {
+                    setQ2("1");
+                  }
+                }}
+              />
+              <RadioButton
+                value="2"
+                status={() => {
+                  if (item.key == "2") {
+                    q2 == "2" ? "checked" : "unchecked";
+                  } else {
+                    q1 == "2" ? "checked" : "unchecked";
+                  }
+                }}
+                onPress={() => {
+                  if (item.key == "2") {
+                    setQ2("2");
+                  } else {
+                    setQ1("2");
+                  }
+                }}
+              />*/}
+              {item.qType == 0 ? (
+                <RadioButton.Group
+                  onValueChange={(value) => {
+                    setAnswersState((prev) => {
+                      return [
+                        ...prev.map((p, ind) =>
+                          ind === index
+                            ? Object.assign(p, { answer: value })
+                            : p
+                        ),
+                      ];
+                    });
+                    //   if (item.Key == 1) {
+                    //     setQ1(value);
+                    //   } else if (item.key == 2) {
+                    //     setQ2(value);
+                    //   }
                   }}
+                  value={answersState[index].answer}
                 >
-                  <RadioButton value="first" />
-                  <Text>1</Text>
-                </View>
-                <View
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginHorizontal: "2%",
+                    }}
+                  >
+                    <RadioButton value={1} />
+                    <Text>1</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginHorizontal: "2%",
+                    }}
+                  >
+                    <RadioButton value={2} />
+                    <Text>2</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginHorizontal: "2%",
+                    }}
+                  >
+                    <RadioButton value={3} />
+                    <Text>3</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginHorizontal: "2%",
+                    }}
+                  >
+                    <RadioButton value={4} />
+                    <Text>4</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginHorizontal: "2%",
+                    }}
+                  >
+                    <RadioButton value={5} />
+                    <Text>5</Text>
+                  </View>
+                </RadioButton.Group>
+              ) : (
+                <TextInput
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginHorizontal: "2%",
+                    flex: 1,
+                    backgroundColor: "#ebecf1",
+                    borderWidth: 2,
+                    borderRadius: 10,
+                    fontSize: 18,
+                    padding: "3%",
+                    borderColor: "#c1c1c1",
                   }}
-                >
-                  <RadioButton value="second" />
-                  <Text>2</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginHorizontal: "2%",
+                  multiline={true}
+                  onChangeText={(text) => {
+                    setAnswersState((prev) => {
+                      return [
+                        ...prev.map((p, ind) =>
+                          ind === index ? Object.assign(p, { answer: text }) : p
+                        ),
+                      ];
+                    });
                   }}
-                >
-                  <RadioButton value="third" />
-                  <Text>3</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginHorizontal: "2%",
-                  }}
-                >
-                  <RadioButton value="forth" />
-                  <Text>4</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginHorizontal: "2%",
-                  }}
-                >
-                  <RadioButton value="forth" />
-                  <Text>5</Text>
-                </View>
-              </RadioButton.Group>
+                />
+              )}
             </View>
           </Card>
         )}
@@ -125,9 +203,7 @@ export default function Questions({ navigation }) {
               alignSelf: "center",
               margin: "3%",
             }}
-            onPress={() => {
-              setModal(true);
-            }}
+            onPress={allChecked}
           >
             <Text style={{ color: "#fff", fontSize: 20 }}>Next</Text>
           </TouchableOpacity>
@@ -185,10 +261,10 @@ export default function Questions({ navigation }) {
             onPress={() => {
               Toast();
               setModal(false);
-              navigation.pop();
+              //navigation.pop();
             }}
           >
-            <Text style={{ color: "#fff", fontSize: 20 }}>Submitted</Text>
+            <Text style={{ color: "#fff", fontSize: 20 }}>Done</Text>
           </TouchableOpacity>
         </Card>
       </Modal>

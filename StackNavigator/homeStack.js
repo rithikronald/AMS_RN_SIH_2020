@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 export default function homeStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Location">
+      <Stack.Navigator initialRouteName="Questions">
         <Stack.Screen
           name="Home"
           component={Home}
@@ -73,14 +73,3 @@ export default function homeStack() {
     </NavigationContainer>
   );
 }
-/*
-<Stack.Screen
-          name="Camera"
-          component={Camera}
-          options={{
-            headerStyle: { backgroundColor: "#222831" },
-            headerTitleStyle: { color: "#fff" },
-            headerTintColor: "#fff",
-          }}
-        />
-*/

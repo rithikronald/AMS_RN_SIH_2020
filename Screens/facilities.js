@@ -80,6 +80,22 @@ export default function Facilities({ navigation }) {
             </TouchableOpacity>
           );
         })}
+        <TouchableOpacity
+          style={{
+            width: "80%",
+            height: 50,
+            backgroundColor: "#96bb7c",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 10,
+            alignSelf: "center",
+            margin: "3%",
+            padding: "2%",
+          }}
+          onPress={() => {}}
+        >
+          <Text style={{ color: "#fff", fontSize: 20 }}>Submit</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
