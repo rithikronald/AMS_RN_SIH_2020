@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator, BackHandler } from "react-native";
 import * as Location from "expo-location";
 
 export default function CurrLocation({ navigation }) {
+  const { visitId } = route.params;
   const [location, setLocation] = useState(null);
   const [err, setErr] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ export default function CurrLocation({ navigation }) {
       navigation.push("Scanner", {
         meoLatitude: userLatitude,
         meoLongitude: userLongitude,
+        visitId: visitId,
       });
     })();
   }, []);

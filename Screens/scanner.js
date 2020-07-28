@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Button, BackHandler } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 var geohash = require("ngeohash");
 export default function App({ route, navigation }) {
-  const { meoLatitude, meoLongitude } = route.params;
+  const { meoLatitude, meoLongitude, visitId } = route.params;
   const [hasPermission, setHasPermission] = useState(null);
   // const [userGeohash, setuserGeohash] = useState("");
   const [scanned, setScanned] = useState(false);
@@ -33,9 +33,8 @@ export default function App({ route, navigation }) {
     setScanned(true);
     if (strcmp(data.substring(0, 4), userGeohash) == 0) {
       console.log("Geohash verified successfully.!");
-      navigation.navigate("ClgDetails", {
-        schoolName: "ds",
-        schoolId: "fdjks",
+      navigation.push("Questions", {
+        visitId: visitId,
       });
     }
     navigation.navigate("Home");

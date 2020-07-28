@@ -9,7 +9,7 @@ export default function home({ navigation }) {
 
   useEffect(() => {
     axios
-      .get(url + "getschools/da4a679b-4416-43a1-925f-c94a74b16c1b")
+      .get(url + "visitlist/da4a679b-4416-43a1-925f-c94a74b16c1b")
       .then((d) => {
         setSchools(d.data);
         console.log(schoolsList);
@@ -31,6 +31,7 @@ export default function home({ navigation }) {
               navigation.push("ClgDetails", {
                 schoolName: item.schoolName,
                 schoolId: item.schoolId,
+                visitId: item.visitId,
               });
             }}
           />

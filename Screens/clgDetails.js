@@ -6,8 +6,8 @@ import { url } from "../assets/constants";
 const axios = require("axios");
 
 export default function clgDetails({ route, navigation }) {
-  const { schoolName } = route.params;
-  const { schoolId } = route.params;
+  const { schoolName, schoolId, visitId } = route.params;
+
   const [schoolAddress, setSchoolAddress] = useState([]);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function clgDetails({ route, navigation }) {
             marginVertical: "5%",
           }}
           onPress={() => {
-            navigation.push("Location");
+            navigation.push("Location", { visitId: visitId });
           }}
         >
           <Text style={{ color: "#fff", fontSize: 18 }}>Make a Vist</Text>
