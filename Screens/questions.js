@@ -15,22 +15,63 @@ import questions from "../Components/data/questionData";
 import { RadioButton } from "react-native-paper";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { Radio } from "native-base";
+const axios = require("axios");
+var url = require("../assets/constants").url;
 
-export default function Questions({ navigation }) {
-  const [answersState, setAnswersState] = useState([
-    ...questions.map((q) =>
-      Object.assign({
-        answer: null,
-        question: q.question,
-        qType: q.qType,
-        total: 8,
-      })
-    ),
-  ]);
+export default function Questions({ route, navigation }) {
+  const { visitId, categoryName } = route.params;
+  const [answersState, setAnswersState] = useState([]);
+  const [Questions, setQuestions] = useState([]);
+  const getQuestions = async () => {
+    const axiosData = await axios.get(url + "getquestions/" + categoryName);
+
+    setAnswersState([
+      ...axiosData.data.questions.map((q) =>
+        Object.assign({
+          answer: null,
+          question: q.question,
+          qType: q.qType,
+          total: 8,
+        })
+      ),
+    ]);
+    setQuestions(axiosData.data.questions);
+    console.log(Questions);
+  };
 
   const [checked, setChecked] = useState(true);
 
   const [modal, setModal] = useState(false);
+  // var Questions;
+  useEffect(() => {
+    getQuestions();
+    // console.log(Questions);
+    // console.log(answersState);
+  }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(url + "getquestions/" + categoryName)
+  //     .then((d) => {
+  //       setQuestions(d.data.questions);
+  //       // console.log(d.data);
+  //       console.log(d.data.questions);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  // const [answersState, setAnswersState] = useState([
+  //   ...Questions.map((q) =>
+  //     Object.assign({
+  //       answer: null,
+  //       question: q.question,
+  //       qType: q.qType,
+  //       total: 8,
+  //     })
+  //   ),
+  // ]);
 
   function Toast() {
     ToastAndroid.show("Report Submitted Sucessfully ", ToastAndroid.SHORT);
@@ -47,7 +88,8 @@ export default function Questions({ navigation }) {
   return (
     <View style={{ flex: 1, padding: "2%" }}>
       <FlatList
-        data={[...questions]}
+        data={[...Questions]}
+        // key={item}
         renderItem={({ item, index }) => (
           <Card
             style={{ flex: 1, margin: "3%", borderRadius: 16, padding: "3%" }}

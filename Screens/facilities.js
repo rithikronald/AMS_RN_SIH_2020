@@ -15,7 +15,7 @@ import { Card, Icon } from "native-base";
 // import cData from "../Components/data/cData";
 // var iconData = require("../Components/data/cData");
 
-export default function Facilities({ navigation }) {
+export default function Facilities({ route, navigation }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {

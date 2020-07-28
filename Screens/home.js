@@ -28,10 +28,11 @@ export default function home({ navigation }) {
             title={item.schoolName}
             logo={item.photo}
             onPress={() => {
-              navigation.push("ClgDetails", {
+              navigation.push("Questions", {
                 schoolName: item.schoolName,
                 schoolId: item.schoolId,
                 visitId: item.visitId,
+                categoryName: "Science Lab",
               });
             }}
           />

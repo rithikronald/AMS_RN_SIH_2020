@@ -33,7 +33,7 @@ export default function App({ route, navigation }) {
     setScanned(true);
     if (strcmp(data.substring(0, 4), userGeohash) == 0) {
       console.log("Geohash verified successfully.!");
-      navigation.push("Questions", {
+      navigation.push("Facilities", {
         visitId: visitId,
       });
     }
