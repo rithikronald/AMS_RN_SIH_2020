@@ -35,10 +35,15 @@ export default function App({ route, navigation }) {
 
   const handleBarCodeScanned = ({ type, data }) => {
     var result = "please go to the correct venue to proceed.";
-
-    data.substring(0, 4) == userGeohash.substring(0, 4)
-      ? navigation.navigate("Facilities")
-      : navigation.navigate("Home");
+    setScanned(true);
+    if (strcmp(data.substring(0, 4), userGeohash) == 0) {
+      console.log("Geohash verified successfully.!");
+      navigation.push("Facilities", {
+        visitId: visitId,
+      });
+    }
+    navigation.navigate("Home");
+    alert(data);
   };
 
   if (hasPermission === null) {

@@ -13,33 +13,32 @@ var url = require("../assets/constants").url;
 import { Card, Icon } from "native-base";
 
 import cData from "../Components/data/cData";
-// var iconData = require("../Components/data/cData");
 
-export default function Facilities({ navigation }) {
+export default function Facilities({ route, navigation }) {
   const [categories, setCategories] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(url + "getcategories")
-  //     .then((d) => {
-  //       setCategories(d.data);
-  //       console.log(categories);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(url + "getcategories")
+      .then((d) => {
+        setCategories(d.data);
+        console.log(categories);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <SafeAreaView style={{ flex: 1, padding: "2%" }}>
       <ScrollView>
-        {cData.map((item, i) => {
+        {categories.map((item, i) => {
           return (
             <TouchableOpacity
               key={item.key}
               style={{ opacity: 1, marginBottom: 5 }}
               onPress={() => {
                 navigation.push("Questions", {
-                  categoryName: item.name,
+                  categoryName: item.categoryName,
                 });
               }}
             >
@@ -54,7 +53,7 @@ export default function Facilities({ navigation }) {
                 <View style={{ flexDirection: "row" }}>
                   <Icon
                     type="FontAwesome"
-                    name={item.icon}
+                    name={"home"}
                     style={{
                       fontSize: 50,
                       color: "#4a3f35",
@@ -73,7 +72,7 @@ export default function Facilities({ navigation }) {
                       alignSelf: "center",
                     }}
                   >
-                    {item.name}
+                    {item.categoryName}
                   </Text>
                 </View>
               </Card>

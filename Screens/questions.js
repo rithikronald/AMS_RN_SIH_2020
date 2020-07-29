@@ -7,9 +7,13 @@ import {
   Modal,
   ToastAndroid,
   TextInput,
+  Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Card, Icon, Item, Right, Toast } from "native-base";
 import questions from "../Components/data/questionData";
+import axios from "axios";
+import { url } from "../assets/constants";
 import { RadioButton } from "react-native-paper";
 import { GlobalContext } from "../StackNavigator/globalState";
 
@@ -20,8 +24,32 @@ export default function Questions({ route, navigation }) {
     finalReview,
     setFinalReview,
   } = useContext(GlobalContext);
+  const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
+
+  const { finalReport } = useContext(GlobalContext);
+
   const { categoryName } = route.params;
   const [review, setReview] = useState();
+
+  const [Questions, setQuestions] = useState([]);
+  const getQuestions = () => {
+    axios
+      .get(url + "getquestions/?categoryName=" + categoryName)
+      .then((res) => {
+        console.log(res.data);
+        setAnswersState([
+          ...res.data.questions.map((q) =>
+            Object.assign({
+              answer: null,
+              question: q.question,
+              qType: q.qType,
+            })
+          ),
+        ]);
+        setQuestions(res.data.questions);
+        console.log(Questions);
+      });
+  };
 
   const [answersState, setAnswersState] = useState([
     ...questions.map((q) =>
@@ -34,6 +62,36 @@ export default function Questions({ route, navigation }) {
   ]);
 
   const [modal, setModal] = useState(false);
+  // var Questions;
+  useEffect(() => {
+    getQuestions();
+    // console.log(Questions);
+    // console.log(answersState);
+  }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(url + "getquestions/" + categoryName)
+  //     .then((d) => {
+  //       setQuestions(d.data.questions);
+  //       // console.log(d.data);
+  //       console.log(d.data.questions);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  // const [answersState, setAnswersState] = useState([
+  //   ...Questions.map((q) =>
+  //     Object.assign({
+  //       answer: null,
+  //       question: q.question,
+  //       qType: q.qType,
+  //       total: 8,
+  //     })
+  //   ),
+  // ]);
 
   function Toast() {
     ToastAndroid.show("Report Submitted Sucessfully ", ToastAndroid.SHORT);
@@ -70,9 +128,14 @@ export default function Questions({ route, navigation }) {
     //console.log(answersState);
   }, [answersState]);
   return (
-    <View style={{ flex: 1, padding: "2%" }}>
+    <KeyboardAvoidingView
+      behavior="position"
+      // keyboardVerticalOffset={keyboardVerticalOffset}
+      style={{ flex: 1, padding: "2%" }}
+    >
       <FlatList
-        data={[...questions]}
+        data={[...Questions]}
+        // key={item}
         renderItem={({ item, index }) => (
           <Card
             style={{ flex: 1, margin: "3%", borderRadius: 16, padding: "3%" }}
@@ -197,6 +260,7 @@ export default function Questions({ route, navigation }) {
           </TouchableOpacity>
         )}
       />
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -264,6 +328,6 @@ export default function Questions({ route, navigation }) {
           </TouchableOpacity>
         </Card>
       </Modal>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

@@ -1,3 +1,3 @@
 module.exports = {
-  url: "http://192.168.1.7:5000/meo/",
+  url: "http://ec2-15-207-86-28.ap-south-1.compute.amazonaws.com:5000/meo/",
 };

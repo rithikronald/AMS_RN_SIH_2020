@@ -25,4 +25,27 @@ const questions = [
     qType: 0,
   },
 ];
-export default questions;
+const axios = require("axios");
+var data = [];
+// const asyncExample = async () => {
+//   const result = await axios.get(url + "getquestions/Toilet");
+
+//   return result;
+// };
+// import React, { useState, useEffect } from "react";
+
+// var url = require("../../assets/constants").url;
+
+// axios
+//   .get(url + "getquestions/Toilet")
+//   .then((d) => {
+//     // setQuestions(d.data.questions);
+//     data = d.data.questions;
+//     console.log(data);
+//     console.log(d.data.questions);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+export default data;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, ActivityIndicator, BackHandler } from "react-native";
 import * as Location from "expo-location";
 
-export default function CurrLocation({ navigation }) {
+export default function CurrLocation({ route, navigation }) {
   const { visitId } = route.params;
   const [location, setLocation] = useState(null);
   const [err, setErr] = useState(null);
