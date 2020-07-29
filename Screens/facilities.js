@@ -12,34 +12,34 @@ var url = require("../assets/constants").url;
 
 import { Card, Icon } from "native-base";
 
-// import cData from "../Components/data/cData";
+import cData from "../Components/data/cData";
 // var iconData = require("../Components/data/cData");
 
 export default function Facilities({ navigation }) {
   const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(url + "getcategories")
-      .then((d) => {
-        setCategories(d.data);
-        console.log(categories);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(url + "getcategories")
+  //     .then((d) => {
+  //       setCategories(d.data);
+  //       console.log(categories);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
   return (
-    <SafeAreaView style={{ flex: 1, padding: "2%", top: 20 }}>
+    <SafeAreaView style={{ flex: 1, padding: "2%" }}>
       <ScrollView>
-        {categories.map((item, i) => {
+        {cData.map((item, i) => {
           return (
             <TouchableOpacity
-              key={item._id}
+              key={item.key}
               style={{ opacity: 1, marginBottom: 5 }}
               onPress={() => {
                 navigation.push("Questions", {
-                  categoryName: item.categoryName,
+                  categoryName: item.name,
                 });
               }}
             >
@@ -73,7 +73,7 @@ export default function Facilities({ navigation }) {
                       alignSelf: "center",
                     }}
                   >
-                    {item.categoryName}
+                    {item.name}
                   </Text>
                 </View>
               </Card>

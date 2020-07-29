@@ -7,38 +7,38 @@ export default function App({ route, navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   // const [userGeohash, setuserGeohash] = useState("");
   const [scanned, setScanned] = useState(false);
-  var userGeohash;
-  function strcmp(a, b) {
-    return a < b ? -1 : a > b ? 1 : 0;
-  }
-  useEffect(() => {
-    // setuserGeohash(geohash.encode(meoLatitude, meoLongitude));
-    userGeohash = geohash.encode(meoLatitude, meoLongitude).substring(0, 4);
-    console.log(geohash.encode(meoLatitude, meoLongitude));
+  const [userGeohash, setUserGeohash] = useState(null);
 
+  useEffect(() => {
+    // setuserGeohash(geohash.encode(meoLatitude, meoLongitude))
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
 
-  useEffect(() => {
+  {
+    /* useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", () => {
       navigation.navigate("Home");
     });
+
+  }, []);*/
+  }
+  useEffect(() => {
+    setUserGeohash(geohash.encode(meoLatitude, meoLongitude));
   }, []);
+
+  useEffect(() => {
+    console.log(userGeohash);
+  }, [userGeohash]);
 
   const handleBarCodeScanned = ({ type, data }) => {
     var result = "please go to the correct venue to proceed.";
-    setScanned(true);
-    if (strcmp(data.substring(0, 4), userGeohash) == 0) {
-      console.log("Geohash verified successfully.!");
-      navigation.push("Questions", {
-        visitId: visitId,
-      });
-    }
-    navigation.navigate("Home");
-    alert(data);
+
+    data.substring(0, 4) == userGeohash.substring(0, 4)
+      ? navigation.navigate("Facilities")
+      : navigation.navigate("Home");
   };
 
   if (hasPermission === null) {
@@ -60,8 +60,6 @@ export default function App({ route, navigation }) {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-
-      {scanned && navigation.push("Facilities")}
     </View>
   );
 }

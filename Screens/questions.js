@@ -1,34 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   FlatList,
-  SafeAreaView,
   TouchableOpacity,
   Text,
   View,
   Modal,
   ToastAndroid,
   TextInput,
-  Animated,
 } from "react-native";
 import { Card, Icon, Item, Right, Toast } from "native-base";
 import questions from "../Components/data/questionData";
 import { RadioButton } from "react-native-paper";
-import { Rating, AirbnbRating } from "react-native-ratings";
-import { Radio } from "native-base";
+import { GlobalContext } from "../StackNavigator/globalState";
 
-export default function Questions({ navigation }) {
+export default function Questions({ route, navigation }) {
+  const {
+    finalReport,
+    setFinalReport,
+    finalReview,
+    setFinalReview,
+  } = useContext(GlobalContext);
+  const { categoryName } = route.params;
+  const [review, setReview] = useState();
+
   const [answersState, setAnswersState] = useState([
     ...questions.map((q) =>
       Object.assign({
         answer: null,
         question: q.question,
         qType: q.qType,
-        total: 8,
       })
     ),
   ]);
-
-  const [checked, setChecked] = useState(true);
 
   const [modal, setModal] = useState(false);
 
@@ -36,13 +39,35 @@ export default function Questions({ navigation }) {
     ToastAndroid.show("Report Submitted Sucessfully ", ToastAndroid.SHORT);
   }
   function allChecked() {
-    answersState.map((item) => {
-      setModal(item.answer != null ? true : false);
-    });
+    // setReport((prev) => {
+    //   prev.fieldData.push(answersState);
+    // });
+    //  setReport({
+    //   categoryName: categoryName,
+    //   fieldData: answersState,
+    // });
+    setFinalReport((prev) => [
+      ...prev,
+      {
+        categoryName: categoryName,
+        fieldData: answersState,
+      },
+    ]);
+    setModal(true);
   }
+  useEffect(() => {
+    console.log(finalReport);
+
+    //console.log(answersState);
+  }, [finalReport]);
+  useEffect(() => {
+    console.log(finalReview);
+
+    //console.log(answersState);
+  }, [finalReview]);
 
   useEffect(() => {
-    console.log(answersState);
+    //console.log(answersState);
   }, [answersState]);
   return (
     <View style={{ flex: 1, padding: "2%" }}>
@@ -60,40 +85,6 @@ export default function Questions({ navigation }) {
                 marginVertical: "2%",
               }}
             >
-              {/*<RadioButton
-                value="1"
-                status={() => {
-                  if (item.key == "1") {
-                    q1 == "1" ? "checked" : "unchecked";
-                  } else {
-                    q2 == "1" ? "checked" : "unchecked";
-                  }
-                }}
-                onPress={() => {
-                  if (item.key == "1") {
-                    setQ1("1");
-                  } else {
-                    setQ2("1");
-                  }
-                }}
-              />
-              <RadioButton
-                value="2"
-                status={() => {
-                  if (item.key == "2") {
-                    q2 == "2" ? "checked" : "unchecked";
-                  } else {
-                    q1 == "2" ? "checked" : "unchecked";
-                  }
-                }}
-                onPress={() => {
-                  if (item.key == "2") {
-                    setQ2("2");
-                  } else {
-                    setQ1("2");
-                  }
-                }}
-              />*/}
               {item.qType == 0 ? (
                 <RadioButton.Group
                   onValueChange={(value) => {
@@ -101,16 +92,13 @@ export default function Questions({ navigation }) {
                       return [
                         ...prev.map((p, ind) =>
                           ind === index
-                            ? Object.assign(p, { answer: value })
+                            ? Object.assign(p, {
+                                answer: value,
+                              })
                             : p
                         ),
                       ];
                     });
-                    //   if (item.Key == 1) {
-                    //     setQ1(value);
-                    //   } else if (item.key == 2) {
-                    //     setQ2(value);
-                    //   }
                   }}
                   value={answersState[index].answer}
                 >
@@ -245,6 +233,9 @@ export default function Questions({ navigation }) {
             }}
             editable={true}
             multiline={true}
+            onChangeText={(text) => {
+              setReview(text);
+            }}
           />
           <TouchableOpacity
             style={{
@@ -259,9 +250,14 @@ export default function Questions({ navigation }) {
               padding: "2%",
             }}
             onPress={() => {
-              Toast();
-              setModal(false);
-              //navigation.pop();
+              setFinalReview((prev) => [
+                ...prev,
+                {
+                  categoryName: categoryName,
+                  message: review,
+                },
+              ]);
+              navigation.pop();
             }}
           >
             <Text style={{ color: "#fff", fontSize: 20 }}>Done</Text>

@@ -7,8 +7,9 @@ import {
   Modal,
   ImageBackground,
   Button,
+  Platform,
 } from "react-native";
-import ViewShort from "react-native-view-shot";
+import ViewShort, { captureRef } from "react-native-view-shot";
 import { Camera } from "expo-camera";
 import { Icon } from "native-base";
 import { TouchableRipple } from "react-native-paper";
@@ -23,6 +24,8 @@ export default function App({ navigation }) {
   const shortRef = useRef(null);
   const [screenShort, setScreenShort] = useState(null);
   const [date, setDate] = useState(null);
+  const format = Platform.OS === "android" ? "raw" : "png";
+  const result = Platform.OS === "android" ? "zip-base64" : "base64";
 
   useEffect(() => {
     (async () => {
@@ -40,10 +43,41 @@ export default function App({ navigation }) {
   }
 
   async function takeScreenShot() {
+    /*
+    //   captureRef(shortRef, { result, format }).then((data) => {
+    //   // expected pattern 'width:height|', example: '1080:1731|'
+    //   const resolution = /^(\d+):(\d+)\|/g.exec(data);
+    //   const width = (resolution || ["", 0, 0])[1];
+    //   const height = (resolution || ["", 0, 0])[2];
+    //   const base64 = data.substr((resolution || [""])[0].length || 0);
+
+    //   // // convert from base64 to Buffer
+    //   const buffer = Buffer.from(base64, "base64");
+    //   URL.createObjectURL(uri);
+      
+
+      
+    //   // // un-compress data
+    //   // const inflated = zlib.inflateSync(buffer);
+    //   // // compose PNG
+    //   // const png = new PNG({ width, height });
+    //   // png.data = inflated;
+    //   // const pngData = PNG.sync.write(png);
+    //   // // save composed PNG
+    //   // fs.writeFileSync(output, pngData);
+    // });
+    // return;
+    */
     await shortRef.current.capture().then((uri) => {
       setScreenShort(uri);
       setModal(false);
       setModal1(true);
+      fetch(uri)
+        .then((res) => res.blob())
+        .then((res) => {
+          // Send res to upload API
+        })
+        .catch((err) => console.error(err));
       console.log("do something with ", uri);
     });
   }
