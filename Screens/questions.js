@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import {
   FlatList,
   TouchableOpacity,
@@ -26,8 +26,6 @@ export default function Questions({ route, navigation }) {
   } = useContext(GlobalContext);
   const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
 
-  const { finalReport } = useContext(GlobalContext);
-
   const { categoryName } = route.params;
   const [review, setReview] = useState();
 
@@ -38,30 +36,25 @@ export default function Questions({ route, navigation }) {
       .then((res) => {
         console.log(res.data);
         setAnswersState([
-          ...res.data.questions.map((q) =>
-            Object.assign({
-              answer: null,
-              question: q.question,
-              qType: q.qType,
-            })
-          ),
+          ...res.data.questions
+            .sort((a, b) => b.qType > a.qType)
+            .map((q) =>
+              Object.assign({
+                answer: null,
+                question: q.question,
+                qType: q.qType,
+              })
+            ),
         ]);
-        setQuestions(res.data.questions);
+        setQuestions(res.data.questions.sort((a, b) => b.qType > a.qType));
         console.log(Questions);
       });
   };
 
-  const [answersState, setAnswersState] = useState([
-    ...questions.map((q) =>
-      Object.assign({
-        answer: null,
-        question: q.question,
-        qType: q.qType,
-      })
-    ),
-  ]);
+  const [answersState, setAnswersState] = useState([]);
 
   const [modal, setModal] = useState(false);
+  const answersRef = useRef([]);
   // var Questions;
   useEffect(() => {
     getQuestions();
@@ -128,17 +121,14 @@ export default function Questions({ route, navigation }) {
     //console.log(answersState);
   }, [answersState]);
   return (
-    <KeyboardAvoidingView
-      behavior="position"
-      // keyboardVerticalOffset={keyboardVerticalOffset}
-      style={{ flex: 1, padding: "2%" }}
-    >
+    <View style={{ flex: 1, padding: "2%" }}>
       <FlatList
         data={[...Questions]}
-        // key={item}
+        keyExtractor={(item) => item.question}
         renderItem={({ item, index }) => (
           <Card
             style={{ flex: 1, margin: "3%", borderRadius: 16, padding: "3%" }}
+            key={item.key}
           >
             <Text style={{ fontSize: 24 }}>{item.question}</Text>
             <View
@@ -227,7 +217,9 @@ export default function Questions({ route, navigation }) {
                     padding: "3%",
                     borderColor: "#c1c1c1",
                   }}
+                  value={answersState[index].answer}
                   multiline={true}
+                  // defaultValue={answersState[index].answer}
                   onChangeText={(text) => {
                     setAnswersState((prev) => {
                       return [
@@ -328,6 +320,6 @@ export default function Questions({ route, navigation }) {
           </TouchableOpacity>
         </Card>
       </Modal>
-    </KeyboardAvoidingView>
+    </View>
   );
 }

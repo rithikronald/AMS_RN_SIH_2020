@@ -35,11 +35,11 @@ export default function CurrLocation({ route, navigation }) {
     })();
   }, []);
 
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", () => {
-      navigation.popToTop();
-    });
-  }, []);
+  // useEffect(() => {
+  //   BackHandler.addEventListener("hardwareBackPress", () => {
+  //     navigation.popToTop();
+  //   });
+  // }, []);
 
   let text = "Getting your location ...";
   if (err) {

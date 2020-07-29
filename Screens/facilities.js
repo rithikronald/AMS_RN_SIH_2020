@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { GlobalContext } from "../StackNavigator/globalState";
 import {
   FlatList,
   SafeAreaView,
@@ -15,7 +16,14 @@ import { Card, Icon } from "native-base";
 import cData from "../Components/data/cData";
 
 export default function Facilities({ route, navigation }) {
-  const [categories, setCategories] = useState([]);
+  const { visitId } = route.params;
+  const {
+    isCategoryFilled,
+    categories,
+    setCategories,
+    allFilled,
+    postreport,
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     axios
@@ -28,14 +36,17 @@ export default function Facilities({ route, navigation }) {
         console.log(err);
       });
   }, []);
+
   return (
     <SafeAreaView style={{ flex: 1, padding: "2%" }}>
       <ScrollView>
         {categories.map((item, i) => {
+          const alreadyFilled = isCategoryFilled(item.categoryName);
           return (
             <TouchableOpacity
-              key={item.key}
-              style={{ opacity: 1, marginBottom: 5 }}
+              key={item._id}
+              disabled={alreadyFilled}
+              style={{ opacity: alreadyFilled ? 0.5 : 1, marginBottom: 5 }}
               onPress={() => {
                 navigation.push("Questions", {
                   categoryName: item.categoryName,
@@ -91,7 +102,10 @@ export default function Facilities({ route, navigation }) {
             margin: "3%",
             padding: "2%",
           }}
-          onPress={() => {}}
+          disabled={!allFilled}
+          onPress={() => {
+            postreport(visitId);
+          }}
         >
           <Text style={{ color: "#fff", fontSize: 20 }}>Submit</Text>
         </TouchableOpacity>

@@ -36,14 +36,15 @@ export default function App({ route, navigation }) {
   const handleBarCodeScanned = ({ type, data }) => {
     var result = "please go to the correct venue to proceed.";
     setScanned(true);
-    if (strcmp(data.substring(0, 4), userGeohash) == 0) {
+    if (data.substring(0, 4) === userGeohash.substring(0, 4)) {
       console.log("Geohash verified successfully.!");
       navigation.push("Facilities", {
         visitId: visitId,
       });
+    } else {
+      navigation.navigate("Home");
+      alert(data);
     }
-    navigation.navigate("Home");
-    alert(data);
   };
 
   if (hasPermission === null) {

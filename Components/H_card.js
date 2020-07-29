@@ -9,6 +9,7 @@ import {
   Content,
   List,
   ListItem,
+  Icon,
 } from "native-base";
 
 export default function Hcard(props) {
@@ -23,7 +24,17 @@ export default function Hcard(props) {
         }}
       >
         <View style={{ flexDirection: "row" }}>
-          <Thumbnail source={{ uri: props.logo }} />
+          <Icon
+            type="FontAwesome"
+            name={"home"}
+            style={{
+              fontSize: 50,
+              color: "#4a3f35",
+              backgroundColor: "#febf63",
+              padding: "2%",
+              borderRadius: 20,
+            }}
+          />
           <Text
             style={{
               fontSize: 20,

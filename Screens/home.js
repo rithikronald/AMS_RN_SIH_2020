@@ -26,13 +26,11 @@ export default function home({ navigation }) {
           <Hcard
             key={item.schoolId}
             title={item.schoolName}
-            logo={item.photo}
             onPress={() => {
-              navigation.push("Questions", {
+              navigation.push("ClgDetails", {
                 schoolName: item.schoolName,
                 schoolId: item.schoolId,
                 visitId: item.visitId,
-                categoryName: "Science Lab",
               });
             }}
           />
