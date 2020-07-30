@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, SafeAreaView, Text, View } from "react-native";
+import {
+  FlatList,
+  SafeAreaView,
+  Text,
+  View,
+  BackHandler,
+  Alert,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Icon } from "native-base";
 import { url } from "../assets/constants";

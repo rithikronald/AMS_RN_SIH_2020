@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, BackHandler } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  BackHandler,
+  Alert,
+  ToastAndroid,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 var geohash = require("ngeohash");
+
 export default function App({ route, navigation }) {
   const { meoLatitude, meoLongitude, visitId } = route.params;
   const [hasPermission, setHasPermission] = useState(null);
@@ -17,14 +26,27 @@ export default function App({ route, navigation }) {
     })();
   }, []);
 
-  {
-    /* useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", () => {
-      navigation.navigate("Home");
-    });
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Hold on!", "Are you sure you want to Exit", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "YES", onPress: () => navigation.popToTop() },
+      ]);
+      return true;
+    };
 
-  }, []);*/
-  }
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   useEffect(() => {
     setUserGeohash(geohash.encode(meoLatitude, meoLongitude));
   }, []);
@@ -38,12 +60,16 @@ export default function App({ route, navigation }) {
     setScanned(true);
     if (data.substring(0, 4) === userGeohash.substring(0, 4)) {
       console.log("Geohash verified successfully.!");
+      ToastAndroid.show("Geohash verified successfully.! ", ToastAndroid.SHORT);
       navigation.push("Facilities", {
         visitId: visitId,
       });
     } else {
+      alert(
+        "You are on the Wrong location . Pls check your Location & try again"
+      );
+
       navigation.navigate("Home");
-      alert(data);
     }
   };
 

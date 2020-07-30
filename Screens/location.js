@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator, BackHandler } from "react-native";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  BackHandler,
+  Alert,
+  ToastAndroid,
+} from "react-native";
 import * as Location from "expo-location";
 
 export default function CurrLocation({ route, navigation }) {
@@ -27,6 +34,8 @@ export default function CurrLocation({ route, navigation }) {
       userLongitude = location.coords.longitude;
       setLoading(false);
 
+      ToastAndroid.show("Location Detected Sucessfully ", ToastAndroid.SHORT);
+
       navigation.push("Scanner", {
         meoLatitude: userLatitude,
         meoLongitude: userLongitude,
@@ -35,11 +44,26 @@ export default function CurrLocation({ route, navigation }) {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   BackHandler.addEventListener("hardwareBackPress", () => {
-  //     navigation.popToTop();
-  //   });
-  // }, []);
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Hold on!", "Are you sure you want to Exit", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "YES", onPress: () => navigation.popToTop() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   let text = "Getting your location ...";
   if (err) {

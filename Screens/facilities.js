@@ -7,6 +7,9 @@ import {
   Text,
   View,
   ScrollView,
+  ToastAndroid,
+  Alert,
+  BackHandler,
 } from "react-native";
 const axios = require("axios");
 var url = require("../assets/constants").url;
@@ -24,6 +27,30 @@ export default function Facilities({ route, navigation }) {
     allFilled,
     postreport,
   } = useContext(GlobalContext);
+  function Toast() {
+    ToastAndroid.show("Report Submitted Sucessfully ", ToastAndroid.SHORT);
+  }
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Hold on!", "Are you sure you want to Exit", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   useEffect(() => {
     axios
@@ -105,6 +132,8 @@ export default function Facilities({ route, navigation }) {
           disabled={!allFilled}
           onPress={() => {
             postreport(visitId);
+            Toast();
+            navigation.popToTop();
           }}
         >
           <Text style={{ color: "#fff", fontSize: 20 }}>Submit</Text>

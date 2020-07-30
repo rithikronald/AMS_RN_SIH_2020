@@ -24,7 +24,6 @@ export default function Questions({ route, navigation }) {
     finalReview,
     setFinalReview,
   } = useContext(GlobalContext);
-  const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
 
   const { categoryName } = route.params;
   const [review, setReview] = useState();
@@ -86,9 +85,11 @@ export default function Questions({ route, navigation }) {
   //   ),
   // ]);
 
+  const [completed, setCompleted] = useState(true);
   function Toast() {
     ToastAndroid.show("Report Submitted Sucessfully ", ToastAndroid.SHORT);
   }
+
   function allChecked() {
     // setReport((prev) => {
     //   prev.fieldData.push(answersState);
@@ -97,6 +98,7 @@ export default function Questions({ route, navigation }) {
     //   categoryName: categoryName,
     //   fieldData: answersState,
     // });
+
     setFinalReport((prev) => [
       ...prev,
       {
@@ -107,21 +109,23 @@ export default function Questions({ route, navigation }) {
     setModal(true);
   }
   useEffect(() => {
-    console.log(finalReport);
-
-    //console.log(answersState);
-  }, [finalReport]);
-  useEffect(() => {
-    console.log(finalReview);
-
-    //console.log(answersState);
-  }, [finalReview]);
-
-  useEffect(() => {
+    console.log(answersState);
     //console.log(answersState);
   }, [answersState]);
+  // useEffect(() => {
+  //   console.log(finalReview);
+
+  //   //console.log(answersState);
+  //}, [finalReview]);
+
+  // useEffect(() => {
+  //   //console.log(answersState);
+  // }, [answersState]);
   return (
     <View style={{ flex: 1, padding: "2%" }}>
+      <Text style={{ fontSize: 35, fontWeight: "700", margin: "2%" }}>
+        {categoryName}
+      </Text>
       <FlatList
         data={[...Questions]}
         keyExtractor={(item) => item.question}
@@ -247,6 +251,7 @@ export default function Questions({ route, navigation }) {
               margin: "3%",
             }}
             onPress={allChecked}
+            //disabled={completed}
           >
             <Text style={{ color: "#fff", fontSize: 20 }}>Next</Text>
           </TouchableOpacity>

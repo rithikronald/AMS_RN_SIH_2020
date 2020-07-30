@@ -39,6 +39,7 @@ export default function homeStack() {
             headerStyle: { backgroundColor: "#222831" },
             headerTitleStyle: { color: "#fff" },
             headerTintColor: "#fff",
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -48,6 +49,7 @@ export default function homeStack() {
             headerStyle: { backgroundColor: "#222831" },
             headerTitleStyle: { color: "#fff" },
             headerTintColor: "#fff",
+            headerLeft: null,
           }}
         />
 
