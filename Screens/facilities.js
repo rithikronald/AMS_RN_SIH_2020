@@ -16,7 +16,7 @@ var url = require("../assets/constants").url;
 
 import { Card, Icon } from "native-base";
 
-import cData from "../Components/data/cData";
+//import cData from "../Components/data/cData";
 
 export default function Facilities({ route, navigation }) {
   const { visitId } = route.params;

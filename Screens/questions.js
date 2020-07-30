@@ -28,6 +28,31 @@ export default function Questions({ route, navigation }) {
   const { categoryName } = route.params;
   const [review, setReview] = useState();
 
+  const [completed, setCompleted] = useState(false);
+
+  useEffect(() => {
+    var ans = answersState.filter((p) => {
+      p.answer === null;
+    });
+    console.log("IUEYEYGFE", ans.length);
+    if (ans.length === 0) {
+      setCompleted(true);
+    } else {
+      setCompleted(false);
+    }
+    // answersState.map((item, i) => {
+    //   let ref = [];
+    //   if (item.answer != null) {
+    //     ref.push(item);
+    //     if (ref.length == 5) {
+    //       setCompleted(false);
+    //     } else {
+    //       setCompleted(true);
+    //     }
+    //   }
+    // });
+  }, [answersState]);
+
   const [Questions, setQuestions] = useState([]);
   const getQuestions = () => {
     axios
@@ -85,7 +110,6 @@ export default function Questions({ route, navigation }) {
   //   ),
   // ]);
 
-  const [completed, setCompleted] = useState(true);
   function Toast() {
     ToastAndroid.show("Report Submitted Sucessfully ", ToastAndroid.SHORT);
   }
@@ -251,7 +275,11 @@ export default function Questions({ route, navigation }) {
               margin: "3%",
             }}
             onPress={allChecked}
-            //disabled={completed}
+            disabled={
+              answersState.filter((p) => {
+                return p.answer === null;
+              }).length > 0
+            }
           >
             <Text style={{ color: "#fff", fontSize: 20 }}>Next</Text>
           </TouchableOpacity>
@@ -319,6 +347,7 @@ export default function Questions({ route, navigation }) {
                 },
               ]);
               navigation.pop();
+              //setModal(false);
             }}
           >
             <Text style={{ color: "#fff", fontSize: 20 }}>Done</Text>
