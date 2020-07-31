@@ -4,19 +4,60 @@ import Hcard from "../Components/H_card";
 import Clg from "../Components/data/data";
 var url = require("../assets/constants").url;
 const axios = require("axios");
+const visitId = "da4a679b-4416-43a1-925f-c94a74b16c1b";
 export default function home({ navigation }) {
-  const [schoolsList, setSchools] = useState([]);
-
-  useEffect(() => {
+  const getCompletedlist = () => {
     axios
-      .get(url + "visitlist/da4a679b-4416-43a1-925f-c94a74b16c1b")
-      .then((d) => {
-        setSchools(d.data);
-        console.log(schoolsList);
+      .get(url + "completedschoolsv2/" + visitId)
+      .then((res) => {
+        // console.log(res.data);
+
+        setCompletedlist(res.data);
+        console.log(setCompletedlist);
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const getPendinglist = () => {
+    axios
+      .get(url + "visitlistv2/" + visitId)
+      .then((res) => {
+        // console.log(res.data);
+
+        setPendinglist(res.data);
+        console.log(pendingList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getAllquestions = () => {
+    axios
+      .get(url + "getallquestionsv2/")
+      .then((res) => {
+        // console.log(res.data);
+
+        setAllquestions(res.data);
+        console.log(Questions);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const [pendingList, setPendinglist] = useState([]);
+  const [completedList, setCompletedlist] = useState([]);
+  const [Questions, setAllquestions] = useState([]);
+
+  useEffect(() => {
+    getCompletedlist();
+    getPendinglist();
+    getAllquestions();
+    // console.log(pendingList);
+    // console.log(completedList);
+    // console.log(Questions);
   }, []);
 
   return (
@@ -26,10 +67,10 @@ export default function home({ navigation }) {
       <Text style={{ fontWeight: "600", fontSize: 30, marginVertical: "4%" }}>
         Pending Schoools
       </Text>
-      {schoolsList.map((item, i) => {
+      {pendingList.map((item, i) => {
         return (
           <Hcard
-            key={item.schoolId}
+            key={item.visitId}
             title={item.schoolName}
             onPress={() => {
               navigation.push("School Details", {
