@@ -29,30 +29,45 @@ export default function clgDetails({ route, navigation }) {
       });
   }, []);
   return (
-    <SafeAreaView style={{ flex: 1, padding: "2%", top: 20 }}>
-      <Text style={{ fontSize: 30, fontWeight: "600" }}>{schoolName}</Text>
-      <View style={{ flex: 1, marginHorizontal: "3%", marginVertical: "15%" }}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Address:</Text>
-        <Text style={{ marginLeft: "3%", margin: "3%", fontSize: 16 }}>
-          {schoolAddress}
+    <SafeAreaView style={{ flex: 1, padding: "2%" }}>
+      <View style={{ flex: 1, marginVertical: "4%", marginHorizontal: "2%" }}>
+        <Text style={{ fontSize: 35, fontWeight: "600", marginVertical: "4%" }}>
+          {schoolName}
         </Text>
-        <TouchableOpacity
+        <Text
+          style={{ fontSize: 25, fontWeight: "bold", marginVertical: "4%" }}
+        >
+          Address:
+        </Text>
+        <Text
           style={{
-            width: 200,
-            height: 50,
-            backgroundColor: "#96bb7c",
-            alignSelf: "center",
-            alignItems: "center",
-            justifyContent: "center",
-            marginVertical: "5%",
-          }}
-          onPress={() => {
-            navigation.push("Location", { visitId: visitId });
+            marginLeft: "3%",
+            margin: "3%",
+            fontSize: 20,
+            marginVertical: "4%",
           }}
         >
-          <Text style={{ color: "#fff", fontSize: 18 }}>Make a Vist</Text>
-        </TouchableOpacity>
+          {schoolAddress}
+        </Text>
       </View>
+      <TouchableOpacity
+        style={{
+          width: 250,
+          height: 60,
+          backgroundColor: "#96bb7c",
+          alignSelf: "center",
+          alignItems: "center",
+          justifyContent: "center",
+          marginVertical: "5%",
+          borderRadius: 16,
+          bottom: 50,
+        }}
+        onPress={() => {
+          navigation.push("Location", { visitId: visitId });
+        }}
+      >
+        <Text style={{ color: "#fff", fontSize: 18 }}>Make a Vist</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

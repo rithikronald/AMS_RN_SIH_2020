@@ -16,19 +16,27 @@ export default function homeStack() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
-          name="Home"
+          name="List of Schools"
           component={Home}
           options={{
-            headerStyle: { backgroundColor: "#222831" },
-            headerTitleStyle: { color: "#fff" },
+            headerStyle: {
+              backgroundColor: "#222831",
+              height: 100,
+              borderBottomEndRadius: 50,
+            },
+            headerTitleStyle: { color: "#fff", fontSize: 25 },
           }}
         />
         <Stack.Screen
-          name="ClgDetails"
+          name="School Details"
           component={ClgDetails}
           options={{
-            headerStyle: { backgroundColor: "#222831" },
-            headerTitleStyle: { color: "#fff" },
+            headerStyle: {
+              backgroundColor: "#222831",
+              height: 100,
+              borderBottomEndRadius: 50,
+            },
+            headerTitleStyle: { color: "#fff", fontSize: 25 },
             headerTintColor: "#fff",
           }}
         />
@@ -36,8 +44,12 @@ export default function homeStack() {
           name="Location"
           component={Location}
           options={{
-            headerStyle: { backgroundColor: "#222831" },
-            headerTitleStyle: { color: "#fff" },
+            headerStyle: {
+              backgroundColor: "#222831",
+              height: 100,
+              borderBottomEndRadius: 50,
+            },
+            headerTitleStyle: { color: "#fff", fontSize: 25 },
             headerTintColor: "#fff",
             headerLeft: null,
           }}
@@ -46,8 +58,12 @@ export default function homeStack() {
           name="Scanner"
           component={Scanner}
           options={{
-            headerStyle: { backgroundColor: "#222831" },
-            headerTitleStyle: { color: "#fff" },
+            headerStyle: {
+              backgroundColor: "#222831",
+              height: 100,
+              borderBottomEndRadius: 40,
+            },
+            headerTitleStyle: { color: "#fff", fontSize: 25 },
             headerTintColor: "#fff",
             headerLeft: null,
           }}
@@ -57,8 +73,12 @@ export default function homeStack() {
           name="Facilities"
           component={Facilities}
           options={{
-            headerStyle: { backgroundColor: "#222831" },
-            headerTitleStyle: { color: "#fff" },
+            headerStyle: {
+              backgroundColor: "#222831",
+              height: 100,
+              borderBottomEndRadius: 50,
+            },
+            headerTitleStyle: { color: "#fff", fontSize: 25 },
             headerTintColor: "#fff",
           }}
         />
@@ -66,8 +86,12 @@ export default function homeStack() {
           name="Questions"
           component={Questions}
           options={{
-            headerStyle: { backgroundColor: "#222831" },
-            headerTitleStyle: { color: "#fff" },
+            headerStyle: {
+              backgroundColor: "#222831",
+              height: 100,
+              borderBottomEndRadius: 50,
+            },
+            headerTitleStyle: { color: "#fff", fontSize: 25 },
             headerTintColor: "#fff",
           }}
         />
@@ -75,8 +99,12 @@ export default function homeStack() {
           name="Camera"
           component={Camera}
           options={{
-            headerStyle: { backgroundColor: "#222831" },
-            headerTitleStyle: { color: "#fff" },
+            headerStyle: {
+              backgroundColor: "#222831",
+              height: 100,
+              borderBottomEndRadius: 40,
+            },
+            headerTitleStyle: { color: "#fff", fontSize: 25 },
             headerTintColor: "#fff",
           }}
         />

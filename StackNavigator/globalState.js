@@ -15,8 +15,8 @@ export const GlobalState = (props) => {
       })
       .then((d) => {
         console.log(d);
-        setFinalReport(null);
-        setFinalReview(null);
+        setFinalReport([]);
+        setFinalReview([]);
       })
       .catch((error) => {
         console.log(error);

@@ -77,7 +77,9 @@ export default function CurrLocation({ route, navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <ActivityIndicator size="large" animating={loading} color="#0000ff" />
-      <Text style={{ fontSize: 18 }}>{text}</Text>
+      <Text style={{ fontSize: 20, alignSelf: "center", marginVertical: "3%" }}>
+        Please wait until your is detected !!
+      </Text>
     </View>
   );
 }

@@ -39,7 +39,7 @@ export default function Facilities({ route, navigation }) {
           onPress: () => null,
           style: "cancel",
         },
-        { text: "YES", onPress: () => BackHandler.exitApp() },
+        { text: "YES", onPress: () => navigation.popToTop() },
       ]);
       return true;
     };
@@ -73,7 +73,7 @@ export default function Facilities({ route, navigation }) {
             <TouchableOpacity
               key={item._id}
               disabled={alreadyFilled}
-              style={{ opacity: alreadyFilled ? 0.5 : 1, marginBottom: 5 }}
+              style={{ opacity: 1, marginBottom: 5 }}
               onPress={() => {
                 navigation.push("Questions", {
                   categoryName: item.categoryName,
@@ -112,6 +112,17 @@ export default function Facilities({ route, navigation }) {
                   >
                     {item.categoryName}
                   </Text>
+                  {alreadyFilled == true ? (
+                    <Icon
+                      style={{
+                        fontSize: 30,
+                        color: "#d3de32",
+                        alignSelf: "center",
+                      }}
+                      type="FontAwesome"
+                      name={"check"}
+                    />
+                  ) : null}
                 </View>
               </Card>
             </TouchableOpacity>
