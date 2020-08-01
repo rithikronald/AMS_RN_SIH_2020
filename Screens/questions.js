@@ -27,7 +27,7 @@ export default function Questions({ route, navigation }) {
     setallquestionsList,
   } = useContext(GlobalContext);
 
-  const { categoryName } = route.params;
+  const { categoryName, questionsArray } = route.params;
   const [review, setReview] = useState();
 
   const [completed, setCompleted] = useState(false);
@@ -108,7 +108,20 @@ export default function Questions({ route, navigation }) {
   // var Questions;
   useEffect(() => {
     // getQuestions();
-    getQuestionsv2();
+    setAnswersState([
+      ...questionsArray.questions
+        .sort((a, b) => b.qType > a.qType)
+        .map((q) =>
+          Object.assign({
+            answer: null,
+            question: q.question,
+            qType: q.qType,
+          })
+        ),
+    ]);
+    setQuestions(questionsArray.questions.sort((a, b) => b.qType > a.qType));
+
+    // getQuestionsv2();
     // console.log(Questions);
     // console.log(answersState);
   }, []);

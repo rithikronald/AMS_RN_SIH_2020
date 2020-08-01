@@ -104,7 +104,7 @@ export default function home({ navigation }) {
   };
 
   const isInternetavailable = (isInternetavailable) => {
-    if (isInternetavailable) {
+    if (!isInternetavailable) {
       getCompletedlist();
       getPendinglist();
       getAllquestions();

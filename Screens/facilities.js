@@ -83,6 +83,7 @@ export default function Facilities({ route, navigation }) {
               onPress={() => {
                 navigation.push("Questions", {
                   categoryName: item.categoryName,
+                  questionsArray: item,
                 });
               }}
             >
