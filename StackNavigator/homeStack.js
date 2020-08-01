@@ -2,7 +2,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../Screens/home";
-import ClgDetails from "../Screens/clgDetails";
+import SchoolDetails from "../Screens/SchoolDetails";
 import Location from "../Screens/location";
 import Scanner from "../Screens/scanner";
 import Camera from "../Screens/camera";
@@ -30,7 +30,7 @@ export default function homeStack() {
         />
         <Stack.Screen
           name="School Details"
-          component={ClgDetails}
+          component={SchoolDetails}
           options={{
             headerStyle: {
               backgroundColor: "#222831",
