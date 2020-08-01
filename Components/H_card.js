@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Right, ScrollView } from "react-native";
 import {
   Card,
   Thumbnail,
@@ -13,42 +13,52 @@ import {
 } from "native-base";
 
 export default function Hcard(props) {
+  const dt = Date(props.date);
   return (
-    <TouchableOpacity style={{ opacity: 16 }} onPress={props.onPress}>
-      <Card
-        style={{
-          padding: "3%",
-          borderRadius: 20,
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <View style={{ flexDirection: "row" }}>
-          <Icon
-            type="FontAwesome"
-            name={"home"}
-            style={{
-              fontSize: 50,
-              color: "#4a3f35",
-              backgroundColor: "#febf63",
-              padding: "2%",
-              borderRadius: 20,
-            }}
-          />
+    <TouchableOpacity
+      style={{
+        opacity: 16,
+        backgroundColor: "#fff",
+        marginVertical: "1%",
+        padding: "2%",
+      }}
+      onPress={props.onPress}
+    >
+      <View style={{ flexDirection: "row", padding: "2%" }}>
+        <Thumbnail
+          large
+          source={{
+            uri:
+              "https://freepikpsd.com/wp-content/uploads/2019/10/elementary-school-png-6-Transparent-Images.png",
+          }}
+        />
+        <View style={{ flex: 1 }}>
           <Text
             style={{
-              fontSize: 20,
-              fontWeight: "600",
+              fontSize: 22,
+              fontWeight: "bold",
               flexWrap: "wrap",
               flex: 1,
-              marginLeft: "4%",
-              alignSelf: "center",
+              marginLeft: "3%",
             }}
           >
             {props.title}
           </Text>
+          <Text style={{ fontSize: 13, marginLeft: "7%" }}>
+            {props.Address}
+          </Text>
+          <Text
+            style={{
+              alignSelf: "flex-end",
+              marginVertical: "1%",
+              marginLeft: "4%",
+              fontSize: 9,
+            }}
+          >
+            {dt.toString()}
+          </Text>
         </View>
-      </Card>
+      </View>
     </TouchableOpacity>
   );
 }

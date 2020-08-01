@@ -17,7 +17,7 @@ export default function homeStack() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
-          name="List of Schools"
+          name="Home"
           component={Home}
           options={{
             headerStyle: {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FlatList, SafeAreaView, Text } from "react-native";
+import { FlatList, SafeAreaView, Text, ScrollView } from "react-native";
 import Hcard from "../Components/H_card";
 // import Clg from "../Components/data/data";
 import NetInfo from "@react-native-community/netinfo";
@@ -151,21 +151,24 @@ export default function home({ navigation }) {
       <Text style={{ fontWeight: "600", fontSize: 30, marginVertical: "4%" }}>
         Pending Schoools
       </Text>
-      {completedList.map((item, i) => {
-        return (
-          <Hcard
-            key={item.visitId}
-            title={item.schoolName}
-            onPress={() => {
-              navigation.push("School Details", {
-                schoolName: item.schoolName,
-                schoolId: item.schoolId,
-                visitId: item.visitId,
-              });
-            }}
-          />
-        );
-      })}
+      <ScrollView>
+        {completedList.map((item, i) => {
+          return (
+            <Hcard
+              key={item.visitId}
+              title={item.schoolName}
+              Address={item.schoolAddress}
+              onPress={() => {
+                navigation.push("School Details", {
+                  schoolName: item.schoolName,
+                  schoolId: item.schoolId,
+                  visitId: item.visitId,
+                });
+              }}
+            />
+          );
+        })}
+      </ScrollView>
     </SafeAreaView>
   );
 }
