@@ -23,6 +23,8 @@ export default function Questions({ route, navigation }) {
     setFinalReport,
     finalReview,
     setFinalReview,
+    allquestionsList,
+    setallquestionsList,
   } = useContext(GlobalContext);
 
   const { categoryName } = route.params;
@@ -74,6 +76,30 @@ export default function Questions({ route, navigation }) {
         console.log(Questions);
       });
   };
+  const getQuestionsv2 = async () => {
+    try {
+      const localquestionsList = await AsyncStorage.getItem(
+        "@allquestionsList"
+      );
+      if (localquestionsList !== null) {
+        console.log(JSON.parse(localquestionsList));
+        setQuestions(JSON.parse(localquestionsList));
+        setAnswersState([
+          ...Questions.sort((a, b) => b.qType > a.qType).map((q) =>
+            Object.assign({
+              answer: null,
+              question: q.question,
+              qType: q.qType,
+            })
+          ),
+        ]);
+        console.log("retriving data from localquestionsList");
+      } else console.log("nothing is there in localquestionsList");
+    } catch (error) {
+      console.log("Error retrieving localquestionsList");
+      console.log(error);
+    }
+  };
 
   const [answersState, setAnswersState] = useState([]);
 
@@ -81,7 +107,8 @@ export default function Questions({ route, navigation }) {
   const answersRef = useRef([]);
   // var Questions;
   useEffect(() => {
-    getQuestions();
+    // getQuestions();
+    getQuestionsv2();
     // console.log(Questions);
     // console.log(answersState);
   }, []);

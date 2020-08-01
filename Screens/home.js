@@ -10,7 +10,11 @@ var url = require("../assets/constants").url;
 const axios = require("axios");
 const visitId = "da4a679b-4416-43a1-925f-c94a74b16c1b";
 export default function home({ navigation }) {
-  const { allquestionsList, setallquestionsList } = useContext(GlobalContext);
+  const {
+    getLocalallquestionsList,
+    allquestionsList,
+    setallquestionsList,
+  } = useContext(GlobalContext);
   const getCompletedlist = () => {
     axios
       .get(url + "completedschoolsv2/" + visitId)
@@ -48,11 +52,11 @@ export default function home({ navigation }) {
       .get(url + "getallquestionsv2/")
       .then((res) => {
         // console.log(res.data);
+        storeLocal(res.data, "allquestionsList");
 
         setallquestionsList(res.data);
-        console.log(allquestionsList);
+        // console.log(allquestionsList);
         console.log("setting state from api call");
-        storeLocal(res.data, "allquestionsList");
       })
       .catch((err) => {
         console.log(err);
@@ -98,19 +102,6 @@ export default function home({ navigation }) {
       console.log(error);
     }
   };
-  const getLocalallquestionsList = async () => {
-    try {
-      const allquestionsList = await AsyncStorage.getItem("@allquestionsList");
-      if (allquestionsList !== null) {
-        console.log(JSON.parse(allquestionsList));
-        setallquestionsList(JSON.parse(allquestionsList));
-        console.log("retriving data from localallquestionsList");
-      } else console.log("nothing is there in localallquestionsList");
-    } catch (error) {
-      console.log("Error retrieving localallquestionsList");
-      console.log(error);
-    }
-  };
 
   const isInternetavailable = (isInternetavailable) => {
     if (isInternetavailable) {
@@ -121,6 +112,7 @@ export default function home({ navigation }) {
       getLocalpendinglist();
       getLocalcompletedlist();
       getLocalallquestionsList();
+      // getLocalquestions();
     }
   };
 
@@ -152,14 +144,14 @@ export default function home({ navigation }) {
         Pending Schoools
       </Text>
       <ScrollView>
-        {completedList.map((item, i) => {
+        {pendingList.map((item, i) => {
           return (
             <Hcard
               key={item.visitId}
               title={item.schoolName}
               Address={item.schoolAddress}
               onPress={() => {
-                navigation.push("School Details", {
+                navigation.push("Facilities", {
                   schoolName: item.schoolName,
                   schoolId: item.schoolId,
                   visitId: item.visitId,

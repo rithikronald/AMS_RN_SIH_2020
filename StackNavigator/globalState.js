@@ -1,4 +1,6 @@
 import React, { useState, createContext, useEffect } from "react";
+import AsyncStorage from "@react-native-community/async-storage";
+
 // import Axios from "axios";
 const url = require("../assets/constants").url;
 const axios = require("axios");
@@ -9,6 +11,7 @@ export const GlobalState = (props) => {
   const [finalReview, setFinalReview] = useState([]);
   const [schoolData, SetSchoolData] = useState([]);
   const [allquestionsList, setallquestionsList] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   function postreport(visitId) {
     axios
@@ -25,9 +28,21 @@ export const GlobalState = (props) => {
         console.log(error);
       });
   }
-  const categoryFilled = finalReport.map(({ categoryName }) => categoryName);
 
-  const [categories, setCategories] = useState([]);
+  const getLocalallquestionsList = async () => {
+    try {
+      const allquestionsList = await AsyncStorage.getItem("@allquestionsList");
+      if (allquestionsList !== null) {
+        console.log(JSON.parse(allquestionsList));
+        setallquestionsList(JSON.parse(allquestionsList));
+        console.log("retriving data from localallquestionsList");
+      } else console.log("nothing is there in localallquestionsList");
+    } catch (error) {
+      console.log("Error retrieving localallquestionsList");
+      console.log(error);
+    }
+  };
+  const categoryFilled = finalReport.map(({ categoryName }) => categoryName);
 
   const [allFilled, setAllFilled] = useState(false);
 
@@ -50,6 +65,7 @@ export const GlobalState = (props) => {
         setCategories,
         allFilled,
         postreport,
+        getLocalallquestionsList,
         allquestionsList,
         setallquestionsList,
         schoolData,

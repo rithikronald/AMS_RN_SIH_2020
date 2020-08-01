@@ -26,12 +26,17 @@ export default function Facilities({ route, navigation }) {
     setCategories,
     allFilled,
     postreport,
+    allquestionsList,
+    getLocalquestions,
+    setallquestionsList,
   } = useContext(GlobalContext);
   function Toast() {
     ToastAndroid.show("Report Submitted Sucessfully ", ToastAndroid.SHORT);
   }
 
   useEffect(() => {
+    // getLocalquestions();
+    setCategories(allquestionsList);
     const backAction = () => {
       Alert.alert("Hold on!", "Are you sure you want to Exit", [
         {
@@ -50,19 +55,20 @@ export default function Facilities({ route, navigation }) {
     );
 
     return () => backHandler.remove();
+    console.log(allquestionsList);
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(url + "getcategories")
-      .then((d) => {
-        setCategories(d.data);
-        console.log(categories);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(url + "getcategories")
+  //     .then((d) => {
+  //       setCategories(d.data);
+  //       console.log(categories);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, padding: "2%" }}>
