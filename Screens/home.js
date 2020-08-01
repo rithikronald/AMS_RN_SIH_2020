@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, SafeAreaView, Text } from "react-native";
 import Hcard from "../Components/H_card";
-import Clg from "../Components/data/data";
+// import Clg from "../Components/data/data";
+import NetInfo from "@react-native-community/netinfo";
+import AsyncStorage from "@react-native-community/async-storage";
 var url = require("../assets/constants").url;
 const axios = require("axios");
 const visitId = "da4a679b-4416-43a1-925f-c94a74b16c1b";
@@ -14,6 +16,8 @@ export default function home({ navigation }) {
 
         setCompletedlist(res.data);
         console.log(setCompletedlist);
+        console.log("setting state from api call");
+        storeLocal(res.data, "completedList");
       })
       .catch((err) => {
         console.log(err);
@@ -28,6 +32,8 @@ export default function home({ navigation }) {
 
         setPendinglist(res.data);
         console.log(pendingList);
+        console.log("setting state from api call");
+        storeLocal(res.data, "pendingList");
       })
       .catch((err) => {
         console.log(err);
@@ -40,21 +46,96 @@ export default function home({ navigation }) {
       .then((res) => {
         // console.log(res.data);
 
-        setAllquestions(res.data);
-        console.log(Questions);
+        setallquestionsList(res.data);
+        console.log(allquestionsList);
+        console.log("setting state from api call");
+        storeLocal(res.data, "allquestionsList");
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const storeLocal = async (value, name) => {
+    try {
+      await AsyncStorage.setItem("@" + name, JSON.stringify(value)).then(
+        console.log("storing local" + name)
+      );
+    } catch (e) {
+      // saving error
+      console.log("error in storing local" + name);
+      console.log(e);
+    }
+  };
+
+  const getLocalpendinglist = async () => {
+    try {
+      const localPendinglist = await AsyncStorage.getItem("@pendingList");
+      if (localPendinglist !== null) {
+        console.log(JSON.parse(localPendinglist));
+        setPendinglist(JSON.parse(localPendinglist));
+        console.log("retriving data from localPendinglist");
+      } else console.log("nothing is there in localPending list");
+    } catch (error) {
+      console.log("Error retrieving Localpendinglist");
+      console.log(error);
+    }
+  };
+
+  const getLocalcompletedlist = async () => {
+    try {
+      const localcompletedList = await AsyncStorage.getItem("@completedList");
+      if (localcompletedList !== null) {
+        console.log(JSON.parse(localcompletedList));
+        setCompletedlist(JSON.parse(localcompletedList));
+        console.log("retriving data from localcompletedList");
+      } else console.log("nothing is there in localcompletedList");
+    } catch (error) {
+      console.log("Error retrieving localcompletedList");
+      console.log(error);
+    }
+  };
+  const getLocalallquestionsList = async () => {
+    try {
+      const allquestionsList = await AsyncStorage.getItem("@allquestionsList");
+      if (allquestionsList !== null) {
+        console.log(JSON.parse(allquestionsList));
+        setallquestionsList(JSON.parse(allquestionsList));
+        console.log("retriving data from localallquestionsList");
+      } else console.log("nothing is there in localallquestionsList");
+    } catch (error) {
+      console.log("Error retrieving localallquestionsList");
+      console.log(error);
+    }
+  };
+
+  const isInternetavailable = (isInternetavailable) => {
+    if (!isInternetavailable) {
+      getCompletedlist();
+      getPendinglist();
+      getAllquestions();
+    } else {
+      getLocalpendinglist();
+      getLocalcompletedlist();
+      getLocalallquestionsList();
+    }
+  };
+
   const [pendingList, setPendinglist] = useState([]);
   const [completedList, setCompletedlist] = useState([]);
-  const [Questions, setAllquestions] = useState([]);
+  const [allquestionsList, setallquestionsList] = useState([]);
 
   useEffect(() => {
-    getCompletedlist();
-    getPendinglist();
-    getAllquestions();
+    NetInfo.fetch().then((state) => {
+      console.log("Connection type", state.type);
+      console.log("Is connected?", state.isConnected);
+      console.log("Is internet available?", state.isInternetReachable);
+
+      isInternetavailable(state.isInternetReachable);
+    });
+    // getCompletedlist();
+    // getPendinglist();
+    // getAllquestions();
     // console.log(pendingList);
     // console.log(completedList);
     // console.log(Questions);
@@ -67,7 +148,7 @@ export default function home({ navigation }) {
       <Text style={{ fontWeight: "600", fontSize: 30, marginVertical: "4%" }}>
         Pending Schoools
       </Text>
-      {pendingList.map((item, i) => {
+      {completedList.map((item, i) => {
         return (
           <Hcard
             key={item.visitId}
