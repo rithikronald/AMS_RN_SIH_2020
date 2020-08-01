@@ -7,6 +7,9 @@ export const GlobalContext = createContext();
 export const GlobalState = (props) => {
   const [finalReport, setFinalReport] = useState([]);
   const [finalReview, setFinalReview] = useState([]);
+  const [schoolData, SetSchoolData] = useState([]);
+  const [allquestionsList, setallquestionsList] = useState([]);
+
   function postreport(visitId) {
     axios
       .post(url + "postreport/" + visitId, {
@@ -47,6 +50,10 @@ export const GlobalState = (props) => {
         setCategories,
         allFilled,
         postreport,
+        allquestionsList,
+        setallquestionsList,
+        schoolData,
+        SetSchoolData,
       }}
     >
       {props.children}

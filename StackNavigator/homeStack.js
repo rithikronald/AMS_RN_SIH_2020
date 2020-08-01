@@ -8,6 +8,7 @@ import Scanner from "../Screens/scanner";
 import Camera from "../Screens/camera";
 import Facilities from "../Screens/facilities";
 import Questions from "../Screens/questions";
+import Storage from "../Screens/asyncStorage";
 
 const Stack = createStackNavigator();
 
@@ -108,6 +109,19 @@ export default function homeStack() {
             headerTintColor: "#fff",
           }}
         />
+        {/*</Stack.Navigator> <Stack.Screen 
+        //   name="Storage"
+        //   component={Storage}
+        //   options={{
+        //     headerStyle: {
+        //       backgroundColor: "#222831",
+        //       height: 100,
+        //       borderBottomEndRadius: 50,
+        //     },
+        //     headerTitleStyle: { color: "#fff", fontSize: 25 },
+        //   }}
+        // />
+        */}
       </Stack.Navigator>
     </NavigationContainer>
   );

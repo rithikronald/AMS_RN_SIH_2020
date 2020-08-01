@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FlatList, SafeAreaView, Text } from "react-native";
 import Hcard from "../Components/H_card";
 // import Clg from "../Components/data/data";
 import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-community/async-storage";
+import { GlobalContext } from "../StackNavigator/globalState";
+
 var url = require("../assets/constants").url;
 const axios = require("axios");
 const visitId = "da4a679b-4416-43a1-925f-c94a74b16c1b";
 export default function home({ navigation }) {
+  const { allquestionsList, setallquestionsList } = useContext(GlobalContext);
   const getCompletedlist = () => {
     axios
       .get(url + "completedschoolsv2/" + visitId)
@@ -110,7 +113,7 @@ export default function home({ navigation }) {
   };
 
   const isInternetavailable = (isInternetavailable) => {
-    if (!isInternetavailable) {
+    if (isInternetavailable) {
       getCompletedlist();
       getPendinglist();
       getAllquestions();
@@ -123,7 +126,7 @@ export default function home({ navigation }) {
 
   const [pendingList, setPendinglist] = useState([]);
   const [completedList, setCompletedlist] = useState([]);
-  const [allquestionsList, setallquestionsList] = useState([]);
+  // const [allquestionsList, setallquestionsList] = useState([]);
 
   useEffect(() => {
     NetInfo.fetch().then((state) => {

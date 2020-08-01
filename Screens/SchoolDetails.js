@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -10,6 +10,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Icon } from "native-base";
 import { url } from "../assets/constants";
+
 const axios = require("axios");
 
 export default function clgDetails({ route, navigation }) {
@@ -22,7 +23,9 @@ export default function clgDetails({ route, navigation }) {
       .get(url + "getaddress/" + schoolId)
       .then((d) => {
         setSchoolAddress(d.data.schoolAddress);
+
         console.log(schoolAddress);
+        console.log(allquestionsList);
       })
       .catch((err) => {
         console.log(err);
