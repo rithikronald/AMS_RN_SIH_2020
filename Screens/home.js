@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FlatList, SafeAreaView, Text, ScrollView } from "react-native";
 import Hcard from "../Components/H_card";
-// import Clg from "../Components/data/data";
 import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-community/async-storage";
 import { GlobalContext } from "../StackNavigator/globalState";
@@ -108,7 +107,7 @@ export default function home({ navigation }) {
   };
 
   const isInternetavailable = (isInternetavailable) => {
-    if (isInternetavailable) {
+    if (!isInternetavailable) {
       getCompletedlist();
       getPendinglist();
       getAllquestions();
@@ -169,7 +168,7 @@ export default function home({ navigation }) {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, padding: "2%", backgroundColor: "#ebecf1" }}
+      style={{ flex: 1, padding: "2%", backgroundColor: "#f7f7f7" }}
     >
       <Text style={{ fontWeight: "600", fontSize: 30, marginVertical: "4%" }}>
         Pending Schoools
@@ -182,7 +181,7 @@ export default function home({ navigation }) {
               title={item.schoolName}
               Address={item.schoolAddress}
               onPress={() => {
-                navigation.push("Location", {
+                navigation.push("School Details", {
                   schoolName: item.schoolName,
                   schoolId: item.schoolId,
                   visitId: item.visitId,

@@ -30,7 +30,7 @@ export default function Questions({ route, navigation }) {
     setallquestionsList,
   } = useContext(GlobalContext);
 
-  const { categoryName, questionsArray } = route.params;
+  const { categoryName, questionsArray, visibleForTeachers } = route.params;
   const [review, setReview] = useState();
 
   const [completed, setCompleted] = useState(false);
@@ -130,6 +130,7 @@ export default function Questions({ route, navigation }) {
     setFinalReport((prev) => [
       ...prev,
       {
+        visibleForTeachers,
         categoryName: categoryName,
         fieldData: answersState,
       },
@@ -138,7 +139,7 @@ export default function Questions({ route, navigation }) {
   }
 
   return (
-    <View style={{ flex: 1, padding: "2%" }}>
+    <View style={{ flex: 1, padding: "2%", backgroundColor: "#f7f7f7" }}>
       <Text
         style={{
           fontSize: 30,
@@ -157,6 +158,7 @@ export default function Questions({ route, navigation }) {
               flex: 1,
               margin: "3%",
               padding: "3%",
+              backgroundColor: "#DCE3E6",
             }}
             key={item.key}
           >
@@ -307,7 +309,8 @@ export default function Questions({ route, navigation }) {
             style={{
               width: "60%",
               height: 50,
-              backgroundColor: "#96bb7c",
+              // backgroundColor: "#96bb7c",
+              backgroundColor: "#ffbe00",
               alignItems: "center",
               justifyContent: "center",
               borderRadius: 10,

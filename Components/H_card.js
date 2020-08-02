@@ -18,9 +18,11 @@ export default function Hcard(props) {
     <TouchableOpacity
       style={{
         opacity: 16,
-        backgroundColor: "#fff",
-        marginVertical: "1%",
+        backgroundColor: "#DCE3E6",
+        //backgroundColor: "#dododo",
+        marginVertical: "2%",
         padding: "2%",
+        elevation: 4,
       }}
       onPress={props.onPress}
     >

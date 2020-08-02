@@ -21,7 +21,7 @@ export default function homeStack() {
           component={Home}
           options={{
             headerStyle: {
-              backgroundColor: "#222831",
+              backgroundColor: "#5647b2",
               height: 100,
               borderBottomEndRadius: 50,
             },
@@ -33,7 +33,8 @@ export default function homeStack() {
           component={SchoolDetails}
           options={{
             headerStyle: {
-              backgroundColor: "#222831",
+              //backgroundColor: "#222831",
+              backgroundColor: "#5647b2",
               height: 100,
               borderBottomEndRadius: 50,
             },
@@ -46,7 +47,7 @@ export default function homeStack() {
           component={Location}
           options={{
             headerStyle: {
-              backgroundColor: "#222831",
+              backgroundColor: "#5647b2",
               height: 100,
               borderBottomEndRadius: 50,
             },
@@ -60,7 +61,7 @@ export default function homeStack() {
           component={Scanner}
           options={{
             headerStyle: {
-              backgroundColor: "#222831",
+              backgroundColor: "#5647b2",
               height: 100,
               borderBottomEndRadius: 40,
             },
@@ -75,7 +76,7 @@ export default function homeStack() {
           component={Facilities}
           options={{
             headerStyle: {
-              backgroundColor: "#222831",
+              backgroundColor: "#5647b2",
               height: 100,
               borderBottomEndRadius: 50,
             },
@@ -88,7 +89,7 @@ export default function homeStack() {
           component={Questions}
           options={{
             headerStyle: {
-              backgroundColor: "#222831",
+              backgroundColor: "#5647b2",
               height: 100,
               borderBottomEndRadius: 50,
             },
@@ -101,7 +102,7 @@ export default function homeStack() {
           component={Camera}
           options={{
             headerStyle: {
-              backgroundColor: "#222831",
+              backgroundColor: "#5647b2",
               height: 100,
               borderBottomEndRadius: 40,
             },

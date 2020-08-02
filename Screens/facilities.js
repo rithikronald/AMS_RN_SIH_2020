@@ -71,20 +71,37 @@ export default function Facilities({ route, navigation }) {
   // }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: "2%" }}>
+    <SafeAreaView
+      style={{ flex: 1, paddingVertical: "2%", backgroundColor: "#f7f7f7" }}
+    >
       <ScrollView>
+        <Text
+          style={{
+            fontSize: 28,
+            flex: 1,
+
+            padding: "2%",
+            marginVertical: "2%",
+          }}
+        >
+          Academic
+        </Text>
         {categories.map((item, i) => {
           const alreadyFilled = isCategoryFilled(item.categoryName);
-          return (
+          console.log(item.visibleForTeachers);
+          return item.visibleForTeachers == true ? (
             <TouchableOpacity
               key={item._id}
               disabled={alreadyFilled}
-              style={{ opacity: 1, marginBottom: 5 }}
+              style={{
+                opacity: 1,
+                marginBottom: 5,
+              }}
               onPress={() => {
                 navigation.push("Questions", {
                   categoryName: item.categoryName,
                   questionsArray: item,
-                  visitId: visitId,
+                  visibleForTeachers: item.visibleForTeachers,
                 });
               }}
             >
@@ -94,6 +111,8 @@ export default function Facilities({ route, navigation }) {
                   borderRadius: 10,
                   flexDirection: "row",
                   alignItems: "center",
+                  backgroundColor: "#DCE3E6",
+                  //backgroundColor: "#dododo",
                 }}
               >
                 <View style={{ flexDirection: "row" }}>
@@ -134,13 +153,92 @@ export default function Facilities({ route, navigation }) {
                 </View>
               </Card>
             </TouchableOpacity>
-          );
+          ) : null;
+        })}
+        <Text
+          style={{
+            fontSize: 28,
+            flex: 1,
+
+            padding: "2%",
+            marginVertical: "2%",
+          }}
+        >
+          Others
+        </Text>
+        {categories.map((item, i) => {
+          const alreadyFilled = isCategoryFilled(item.categoryName);
+          console.log(item.visibleForTeachers);
+          return item.visibleForTeachers == false ? (
+            <TouchableOpacity
+              key={item._id}
+              disabled={alreadyFilled}
+              style={{
+                opacity: 1,
+                marginBottom: 5,
+              }}
+              onPress={() => {
+                navigation.push("Questions", {
+                  categoryName: item.categoryName,
+                  questionsArray: item,
+                  visibleForTeachers: item.visibleForTeachers,
+                });
+              }}
+            >
+              <Card
+                style={{
+                  padding: "3%",
+                  borderRadius: 10,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  backgroundColor: "#DCE3E6",
+                }}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <Icon
+                    type="FontAwesome"
+                    name={"book"}
+                    style={{
+                      fontSize: 50,
+                      color: "#4a3f35",
+                      backgroundColor: "#febf63",
+                      padding: "2%",
+                      borderRadius: 20,
+                    }}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontWeight: "600",
+                      flexWrap: "wrap",
+                      flex: 1,
+                      marginLeft: "4%",
+                      alignSelf: "center",
+                    }}
+                  >
+                    {item.categoryName}
+                  </Text>
+                  {alreadyFilled == true ? (
+                    <Icon
+                      style={{
+                        fontSize: 30,
+                        color: "#d3de32",
+                        alignSelf: "center",
+                      }}
+                      type="FontAwesome"
+                      name={"check"}
+                    />
+                  ) : null}
+                </View>
+              </Card>
+            </TouchableOpacity>
+          ) : null;
         })}
         <TouchableOpacity
           style={{
             width: "80%",
             height: 50,
-            backgroundColor: "#96bb7c",
+            backgroundColor: "#ffbe00",
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 10,
