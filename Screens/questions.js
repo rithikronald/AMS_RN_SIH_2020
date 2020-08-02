@@ -284,7 +284,7 @@ export default function Questions({ route, navigation }) {
                     <Text>5</Text>
                   </View>
                 </RadioButton.Group>
-              ) : (
+              ) : item.qType == 1 ? (
                 <TextInput
                   style={{
                     flex: 1,
@@ -308,6 +308,44 @@ export default function Questions({ route, navigation }) {
                     });
                   }}
                 />
+              ) : (
+                <RadioButton.Group
+                  onValueChange={(value) => {
+                    setAnswersState((prev) => {
+                      return [
+                        ...prev.map((p, ind) =>
+                          ind === index
+                            ? Object.assign(p, {
+                                answer: value,
+                              })
+                            : p
+                        ),
+                      ];
+                    });
+                  }}
+                  value={answersState[index].answer}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginHorizontal: "2%",
+                    }}
+                  >
+                    <RadioButton value={3} />
+                    <Text>Yes</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginHorizontal: "2%",
+                    }}
+                  >
+                    <RadioButton value={1} />
+                    <Text>No</Text>
+                  </View>
+                </RadioButton.Group>
               )}
             </View>
           </Card>
