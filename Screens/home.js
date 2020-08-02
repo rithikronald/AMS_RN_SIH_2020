@@ -14,6 +14,11 @@ export default function home({ navigation }) {
     getLocalallquestionsList,
     allquestionsList,
     setallquestionsList,
+    storeLocal,
+    finalReport,
+    setFinalReport,
+    finalReview,
+    setFinalReview,
   } = useContext(GlobalContext);
   const getCompletedlist = () => {
     axios
@@ -63,18 +68,17 @@ export default function home({ navigation }) {
       });
   };
 
-  const storeLocal = async (value, name) => {
-    try {
-      await AsyncStorage.setItem("@" + name, JSON.stringify(value)).then(
-        console.log("storing local" + name)
-      );
-    } catch (e) {
-      // saving error
-      console.log("error in storing local" + name);
-      console.log(e);
-    }
-  };
-
+  // const storeLocal = async (value, name) => {
+  //   try {
+  //     await AsyncStorage.setItem("@" + name, JSON.stringify(value)).then(
+  //       console.log("storing local" + name)
+  //     );
+  //   } catch (e) {
+  //     // saving error
+  //     console.log("error in storing local" + name);
+  //     console.log(e);
+  //   }
+  // };
   const getLocalpendinglist = async () => {
     try {
       const localPendinglist = await AsyncStorage.getItem("@pendingList");
@@ -104,7 +108,7 @@ export default function home({ navigation }) {
   };
 
   const isInternetavailable = (isInternetavailable) => {
-    if (!isInternetavailable) {
+    if (isInternetavailable) {
       getCompletedlist();
       getPendinglist();
       getAllquestions();
@@ -116,18 +120,45 @@ export default function home({ navigation }) {
     }
   };
 
+  const checkInitialactivity = async () => {
+    try {
+      const Data = await AsyncStorage.getItem("@isEngaged");
+      const obj = JSON.parse(Data);
+      if (Data !== null) {
+        console.log(obj);
+        setFinalReport(obj.reportState);
+        setFinalReview(obj.reviewState);
+      } else console.log("visitor is not engaged");
+    } catch (error) {
+      console.log("Error retrieving odjData");
+      console.log(error);
+    }
+  };
   const [pendingList, setPendinglist] = useState([]);
   const [completedList, setCompletedlist] = useState([]);
   // const [allquestionsList, setallquestionsList] = useState([]);
+
+  const getAllKeys = async () => {
+    let keys = [];
+    try {
+      await AsyncStorage.removeItem("@isEngaged");
+
+      keys = await AsyncStorage.getAllKeys();
+      console.log(keys);
+    } catch (e) {
+      // read key error
+    }
+  };
 
   useEffect(() => {
     NetInfo.fetch().then((state) => {
       console.log("Connection type", state.type);
       console.log("Is connected?", state.isConnected);
       console.log("Is internet available?", state.isInternetReachable);
-
       isInternetavailable(state.isInternetReachable);
     });
+    checkInitialactivity();
+    // getAllKeys();
     // getCompletedlist();
     // getPendinglist();
     // getAllquestions();
@@ -151,7 +182,7 @@ export default function home({ navigation }) {
               title={item.schoolName}
               Address={item.schoolAddress}
               onPress={() => {
-                navigation.push("School Details", {
+                navigation.push("Location", {
                   schoolName: item.schoolName,
                   schoolId: item.schoolId,
                   visitId: item.visitId,

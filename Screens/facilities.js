@@ -84,6 +84,7 @@ export default function Facilities({ route, navigation }) {
                 navigation.push("Questions", {
                   categoryName: item.categoryName,
                   questionsArray: item,
+                  visitId: visitId,
                 });
               }}
             >

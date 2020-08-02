@@ -42,6 +42,19 @@ export const GlobalState = (props) => {
       console.log(error);
     }
   };
+
+  const storeLocal = async (value, name) => {
+    try {
+      await AsyncStorage.setItem("@" + name, JSON.stringify(value)).then(
+        console.log("storing local" + name)
+      );
+    } catch (e) {
+      // saving error
+      console.log("error in storing local" + name);
+      console.log(e);
+    }
+  };
+
   const categoryFilled = finalReport.map(({ categoryName }) => categoryName);
 
   const [allFilled, setAllFilled] = useState(false);
@@ -68,6 +81,7 @@ export const GlobalState = (props) => {
         getLocalallquestionsList,
         allquestionsList,
         setallquestionsList,
+        storeLocal,
         schoolData,
         SetSchoolData,
       }}

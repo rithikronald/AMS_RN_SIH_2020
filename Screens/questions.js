@@ -16,8 +16,11 @@ import axios from "axios";
 import { url } from "../assets/constants";
 import { RadioButton } from "react-native-paper";
 import { GlobalContext } from "../StackNavigator/globalState";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default function Questions({ route, navigation }) {
+  const { visitId } = route.params;
+
   const {
     finalReport,
     setFinalReport,
@@ -42,17 +45,6 @@ export default function Questions({ route, navigation }) {
     } else {
       setCompleted(false);
     }
-    // answersState.map((item, i) => {
-    //   let ref = [];
-    //   if (item.answer != null) {
-    //     ref.push(item);
-    //     if (ref.length == 5) {
-    //       setCompleted(false);
-    //     } else {
-    //       setCompleted(true);
-    //     }
-    //   }
-    // });
   }, [answersState]);
 
   const [Questions, setQuestions] = useState([]);
@@ -76,27 +68,17 @@ export default function Questions({ route, navigation }) {
         console.log(Questions);
       });
   };
-  const getQuestionsv2 = async () => {
+
+  const mergeIsengaged = async (obj) => {
     try {
-      const localquestionsList = await AsyncStorage.getItem(
-        "@allquestionsList"
-      );
-      if (localquestionsList !== null) {
-        console.log(JSON.parse(localquestionsList));
-        setQuestions(JSON.parse(localquestionsList));
-        setAnswersState([
-          ...Questions.sort((a, b) => b.qType > a.qType).map((q) =>
-            Object.assign({
-              answer: null,
-              question: q.question,
-              qType: q.qType,
-            })
-          ),
-        ]);
-        console.log("retriving data from localquestionsList");
-      } else console.log("nothing is there in localquestionsList");
+      await AsyncStorage.mergeItem("@isEngaged", JSON.stringify(obj));
+
+      // read merged item
+      const currentStatus = await AsyncStorage.getItem("@isEngaged");
+
+      console.log(currentStatus);
     } catch (error) {
-      console.log("Error retrieving localquestionsList");
+      console.log("Error merging ");
       console.log(error);
     }
   };
@@ -105,9 +87,7 @@ export default function Questions({ route, navigation }) {
 
   const [modal, setModal] = useState(false);
   const answersRef = useRef([]);
-  // var Questions;
   useEffect(() => {
-    // getQuestions();
     setAnswersState([
       ...questionsArray.questions
         .sort((a, b) => b.qType > a.qType)
@@ -126,43 +106,27 @@ export default function Questions({ route, navigation }) {
     // console.log(answersState);
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(url + "getquestions/" + categoryName)
-  //     .then((d) => {
-  //       setQuestions(d.data.questions);
-  //       // console.log(d.data);
-  //       console.log(d.data.questions);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    // console.log(finalReview);
+    mergeIsengaged({
+      visitId: visitId,
+      reviewState: finalReview,
+    });
+  }, [finalReview]);
 
-  // const [answersState, setAnswersState] = useState([
-  //   ...Questions.map((q) =>
-  //     Object.assign({
-  //       answer: null,
-  //       question: q.question,
-  //       qType: q.qType,
-  //       total: 8,
-  //     })
-  //   ),
-  // ]);
+  useEffect(() => {
+    // console.log(finalReport);
+    mergeIsengaged({
+      visitId: visitId,
+      reportState: finalReport,
+    });
+  }, [finalReport]);
 
   function Toast() {
     ToastAndroid.show("Report Submitted Sucessfully ", ToastAndroid.SHORT);
   }
 
   function allChecked() {
-    // setReport((prev) => {
-    //   prev.fieldData.push(answersState);
-    // });
-    //  setReport({
-    //   categoryName: categoryName,
-    //   fieldData: answersState,
-    // });
-
     setFinalReport((prev) => [
       ...prev,
       {
@@ -172,19 +136,7 @@ export default function Questions({ route, navigation }) {
     ]);
     setModal(true);
   }
-  useEffect(() => {
-    console.log(answersState);
-    //console.log(answersState);
-  }, [answersState]);
-  // useEffect(() => {
-  //   console.log(finalReview);
 
-  //   //console.log(answersState);
-  //}, [finalReview]);
-
-  // useEffect(() => {
-  //   //console.log(answersState);
-  // }, [answersState]);
   return (
     <View style={{ flex: 1, padding: "2%" }}>
       <Text

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Text,
   View,
@@ -10,8 +10,11 @@ import {
 } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 var geohash = require("ngeohash");
+import { GlobalContext } from "../StackNavigator/globalState";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default function App({ route, navigation }) {
+  const { storeLocal } = useContext(GlobalContext);
   const { meoLatitude, meoLongitude, visitId } = route.params;
   const [hasPermission, setHasPermission] = useState(null);
   // const [userGeohash, setuserGeohash] = useState("");
@@ -60,6 +63,15 @@ export default function App({ route, navigation }) {
     setScanned(true);
     if (data.substring(0, 4) === userGeohash.substring(0, 4)) {
       console.log("Geohash verified successfully.!");
+      storeLocal(
+        {
+          isEngaged: true,
+          visitId: visitId,
+          reportState: [],
+          reviewState: [],
+        },
+        "isEngaged"
+      );
       ToastAndroid.show("Geohash verified successfully.! ", ToastAndroid.SHORT);
       navigation.push("Facilities", {
         visitId: visitId,
