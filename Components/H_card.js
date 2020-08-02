@@ -44,7 +44,7 @@ export default function Hcard(props) {
           >
             {props.title}
           </Text>
-          <Text style={{ fontSize: 13, marginLeft: "7%" }}>
+          <Text style={{ fontSize: 14, marginLeft: "7%", padding: "2%" }}>
             {props.Address}
           </Text>
           <Text

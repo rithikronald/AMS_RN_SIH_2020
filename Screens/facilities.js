@@ -98,7 +98,7 @@ export default function Facilities({ route, navigation }) {
                 <View style={{ flexDirection: "row" }}>
                   <Icon
                     type="FontAwesome"
-                    name={"home"}
+                    name={"book"}
                     style={{
                       fontSize: 50,
                       color: "#4a3f35",

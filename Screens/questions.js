@@ -187,7 +187,13 @@ export default function Questions({ route, navigation }) {
   // }, [answersState]);
   return (
     <View style={{ flex: 1, padding: "2%" }}>
-      <Text style={{ fontSize: 35, fontWeight: "700", margin: "2%" }}>
+      <Text
+        style={{
+          fontSize: 30,
+          fontWeight: "700",
+          margin: "2%",
+        }}
+      >
         {categoryName}
       </Text>
       <FlatList
@@ -195,10 +201,14 @@ export default function Questions({ route, navigation }) {
         keyExtractor={(item) => item.question}
         renderItem={({ item, index }) => (
           <Card
-            style={{ flex: 1, margin: "3%", borderRadius: 16, padding: "3%" }}
+            style={{
+              flex: 1,
+              margin: "3%",
+              padding: "3%",
+            }}
             key={item.key}
           >
-            <Text style={{ fontSize: 24 }}>{item.question}</Text>
+            <Text style={{ fontSize: 20, margin: "1%" }}>{item.question}</Text>
             <View
               style={{
                 marginHorizontal: "4%",
@@ -342,7 +352,7 @@ export default function Questions({ route, navigation }) {
             justifyContent: "center",
             padding: "3%",
             borderRadius: 10,
-            top: 200,
+            top: 120,
             backgroundColor: "#ebecf1",
           }}
         >
@@ -366,32 +376,52 @@ export default function Questions({ route, navigation }) {
               setReview(text);
             }}
           />
-          <TouchableOpacity
-            style={{
-              width: "60%",
-              height: 50,
-              backgroundColor: "#96bb7c",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 10,
-              alignSelf: "center",
-              margin: "3%",
-              padding: "2%",
-            }}
-            onPress={() => {
-              setFinalReview((prev) => [
-                ...prev,
-                {
-                  categoryName: categoryName,
-                  message: review,
-                },
-              ]);
-              navigation.pop();
-              //setModal(false);
-            }}
-          >
-            <Text style={{ color: "#fff", fontSize: 20 }}>Done</Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            <TouchableOpacity
+              style={{
+                width: "30%",
+                height: 50,
+                backgroundColor: "#96bb7c",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 10,
+                alignSelf: "center",
+                margin: "3%",
+                padding: "2%",
+              }}
+              onPress={() => {
+                setFinalReview((prev) => [
+                  ...prev,
+                  {
+                    categoryName: categoryName,
+                    message: review,
+                  },
+                ]);
+                navigation.pop();
+                //setModal(false);
+              }}
+            >
+              <Text style={{ color: "#fff", fontSize: 20 }}>Done</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: "30%",
+                height: 50,
+                backgroundColor: "#ff5f40",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 10,
+                alignSelf: "center",
+                margin: "3%",
+                padding: "2%",
+              }}
+              onPress={() => {
+                setModal(false);
+              }}
+            >
+              <Text style={{ color: "#fff", fontSize: 20 }}>Back</Text>
+            </TouchableOpacity>
+          </View>
         </Card>
       </Modal>
     </View>
