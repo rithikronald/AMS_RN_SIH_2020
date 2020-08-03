@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import { Icon } from "native-base";
 
 export default function Login({ navigation }) {
   return (
@@ -29,7 +28,6 @@ export default function Login({ navigation }) {
           paddingLeft: 40,
         }}
         placeholder="Username"
-        multiline={true}
         // defaultValue={answersState[index].answer}
         onChangeText={(text) => {}}
       />
@@ -45,8 +43,9 @@ export default function Login({ navigation }) {
           marginVertical: "5%",
           paddingLeft: 40,
         }}
-        multiline={true}
         placeholder="Password"
+        secureTextEntry
+        textContentType="password"
         // defaultValue={answersState[index].answer}
         onChangeText={(text) => {}}
       />

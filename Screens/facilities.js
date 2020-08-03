@@ -116,17 +116,7 @@ export default function Facilities({ route, navigation }) {
                 }}
               >
                 <View style={{ flexDirection: "row" }}>
-                  <Icon
-                    type="FontAwesome"
-                    name={"book"}
-                    style={{
-                      fontSize: 50,
-                      color: "#4a3f35",
-                      backgroundColor: "#febf63",
-                      padding: "2%",
-                      borderRadius: 20,
-                    }}
-                  />
+                  <Thumbnail source={require("../assets/lg2.png")} />
                   <Text
                     style={{
                       fontSize: 20,
@@ -195,16 +185,9 @@ export default function Facilities({ route, navigation }) {
                 }}
               >
                 <View style={{ flexDirection: "row" }}>
-                  <Icon
-                    type="FontAwesome"
-                    name={"book"}
-                    style={{
-                      fontSize: 50,
-                      color: "#4a3f35",
-                      backgroundColor: "#febf63",
-                      padding: "2%",
-                      borderRadius: 20,
-                    }}
+                  <Thumbnail
+                    source={require("../assets/lg3.png")}
+                    style={{ padding: 8 }}
                   />
 
                   <Text
@@ -223,7 +206,7 @@ export default function Facilities({ route, navigation }) {
                     <Icon
                       style={{
                         fontSize: 30,
-                        color: "#d3de32",
+                        color: "#8964e0",
                         alignSelf: "center",
                       }}
                       type="FontAwesome"
