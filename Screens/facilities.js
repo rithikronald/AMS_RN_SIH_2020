@@ -15,6 +15,7 @@ const axios = require("axios");
 var url = require("../assets/constants").url;
 
 import { Card, Icon } from "native-base";
+import { Thumbnail } from "native-base";
 
 //import cData from "../Components/data/cData";
 
@@ -71,9 +72,7 @@ export default function Facilities({ route, navigation }) {
   // }, []);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, paddingVertical: "2%", backgroundColor: "#f7f7f7" }}
-    >
+    <SafeAreaView style={{ flex: 1, padding: "2%", backgroundColor: "#fff" }}>
       <ScrollView>
         <Text
           style={{
@@ -144,7 +143,7 @@ export default function Facilities({ route, navigation }) {
                     <Icon
                       style={{
                         fontSize: 30,
-                        color: "#d3de32",
+                        color: "#8964e0",
                         alignSelf: "center",
                       }}
                       type="FontAwesome"
@@ -207,6 +206,7 @@ export default function Facilities({ route, navigation }) {
                       borderRadius: 20,
                     }}
                   />
+
                   <Text
                     style={{
                       fontSize: 20,

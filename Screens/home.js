@@ -194,7 +194,7 @@ export default function home({ navigation }) {
               title={item.schoolName}
               Address={item.schoolAddress}
               onPress={() => {
-                navigation.push("School Details", {
+                navigation.push("Facilities", {
                   schoolName: item.schoolName,
                   schoolId: item.schoolId,
                   visitId: item.visitId,
