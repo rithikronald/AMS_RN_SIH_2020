@@ -11,6 +11,7 @@ import {
   ListItem,
   Icon,
 } from "native-base";
+import Feather from "react-native-vector-icons/Feather";
 
 export default function Hcard(props) {
   const dt = Date(props.date);
@@ -18,48 +19,69 @@ export default function Hcard(props) {
     <TouchableOpacity
       style={{
         opacity: 16,
-        backgroundColor: "#DCE3E6",
+        backgroundColor: "#FBFCFF",
         //backgroundColor: "#dododo",
         marginVertical: "2%",
-        padding: "2%",
-        elevation: 4,
+        padding: "1%",
+        margin: "0.8%",
+        elevation: 7,
+        borderRadius: 10,
+        shadowOffset: 8,
+        shadowRadius: 7,
+        shadowOpacity: 0.8,
+        borderColor: "#ddd",
+        borderWidth: 0.5,
+        borderBottomWidth: 0,
+        flexDirection: "row",
+        // shadowColor: "#000",
       }}
+      /* {
+          backgroundColor: '#FBFCFF',
+          margin: '3%',
+          // minHeight: "10%",
+          padding: '3%',
+          borderRadius: 6,
+          borderWidth: 0.5,
+          borderColor: '#ddd',
+          borderBottomWidth: 0,
+          shadowColor: '#000',
+          shadowOffset: {width: 5, height: 8},
+          shadowOpacity: 0.8,
+          shadowRadius: 7,
+          elevation: 6,
+        }*/
       onPress={props.onPress}
     >
-      <View style={{ flexDirection: "row", padding: "2%" }}>
-        <Thumbnail
-          large
-          source={{
-            uri:
-              "https://freepikpsd.com/wp-content/uploads/2019/10/elementary-school-png-6-Transparent-Images.png",
+      <Thumbnail
+        style={{ alignSelf: "center", margin: "0.8%", flex: 1 }}
+        large
+        source={require("../assets/purple.png")}
+      />
+      <View style={{ flex: 3 }}>
+        <Text
+          style={{
+            fontSize: 22,
+            fontWeight: "bold",
+            flexWrap: "wrap",
+            flex: 1,
+            marginLeft: "4%",
           }}
-        />
-        <View style={{ flex: 1 }}>
-          <Text
-            style={{
-              fontSize: 22,
-              fontWeight: "bold",
-              flexWrap: "wrap",
-              flex: 1,
-              marginLeft: "3%",
-            }}
-          >
-            {props.title}
-          </Text>
-          <Text style={{ fontSize: 14, marginLeft: "7%", padding: "2%" }}>
-            {props.Address}
-          </Text>
-          <Text
-            style={{
-              alignSelf: "flex-end",
-              marginVertical: "1%",
-              marginLeft: "4%",
-              fontSize: 9,
-            }}
-          >
-            {dt.toString()}
-          </Text>
-        </View>
+        >
+          {props.title}
+        </Text>
+        <Text style={{ fontSize: 14, marginLeft: "4%", padding: "2%" }}>
+          {props.Address}
+        </Text>
+        <Text
+          style={{
+            alignSelf: "flex-end",
+            marginVertical: "1%",
+            marginLeft: "4%",
+            fontSize: 9,
+          }}
+        >
+          {dt.toString()}
+        </Text>
       </View>
     </TouchableOpacity>
   );

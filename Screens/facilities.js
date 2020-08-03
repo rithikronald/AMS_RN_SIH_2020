@@ -109,6 +109,7 @@ export default function Facilities({ route, navigation }) {
                 style={{
                   padding: "3%",
                   borderRadius: 10,
+                  margin: "3%",
                   flexDirection: "row",
                   alignItems: "center",
                   backgroundColor: "#DCE3E6",
@@ -238,7 +239,7 @@ export default function Facilities({ route, navigation }) {
           style={{
             width: "80%",
             height: 50,
-            backgroundColor: "#ffbe00",
+            backgroundColor: "#8964e0",
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 10,

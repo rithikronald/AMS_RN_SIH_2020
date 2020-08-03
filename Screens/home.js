@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FlatList, SafeAreaView, Text, ScrollView } from "react-native";
+import {
+  FlatList,
+  SafeAreaView,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import Hcard from "../Components/H_card";
 import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-community/async-storage";
 import { GlobalContext } from "../StackNavigator/globalState";
+import Feather from "react-native-vector-icons/Feather";
 
 var url = require("../assets/constants").url;
 const axios = require("axios");
@@ -107,7 +114,7 @@ export default function home({ navigation }) {
   };
 
   const isInternetavailable = (isInternetavailable) => {
-    if (!isInternetavailable) {
+    if (isInternetavailable) {
       getCompletedlist();
       getPendinglist();
       getAllquestions();
@@ -168,11 +175,19 @@ export default function home({ navigation }) {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, padding: "2%", backgroundColor: "#f7f7f7" }}
+      style={{ flex: 1, padding: "3%", backgroundColor: "#f7f7f7" }}
     >
-      <Text style={{ fontWeight: "600", fontSize: 30, marginVertical: "4%" }}>
-        Pending Schoools
-      </Text>
+      {/*
+      <Text
+      style={{
+        fontWeight: "bold",
+        fontSize: 24,
+        fontWeight: "bold",
+        marginVertical: "4%",
+      }}
+    >
+      Pending Schools
+    </Text>*/}
       <ScrollView>
         {pendingList.map((item, i) => {
           return (
@@ -191,6 +206,21 @@ export default function home({ navigation }) {
           );
         })}
       </ScrollView>
+      <TouchableOpacity
+        style={{
+          backgroundColor: "#8964e0",
+          width: 58,
+          height: 58,
+          borderRadius: 150 / 2,
+          justifyContent: "center",
+          alignItems: "center",
+          alignSelf: "flex-end",
+          // marginTop: "10%"
+        }}
+        onPress={() => {}}
+      >
+        <Feather name="arrow-right" size={30} color="#FBFCFF" />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

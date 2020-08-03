@@ -15,17 +15,35 @@ const Stack = createStackNavigator();
 export default function homeStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator
+        initialRouteName="Home"
+        options={{
+          headerStyle: {
+            backgroundColor: "#8964e0",
+            height: 100,
+
+            borderBottomEndRadius: 50,
+            borderBottomStartRadius: 50,
+          },
+          headerTitleStyle: { color: "#fff", fontSize: 23 },
+          headerTitleAlign: "center",
+          headerTitleAllowFontScaling: true,
+        }}
+      >
         <Stack.Screen
-          name="Home"
+          name="PENDING VISITS"
           component={Home}
           options={{
             headerStyle: {
-              backgroundColor: "#5647b2",
+              backgroundColor: "#8964e0",
               height: 100,
+
               borderBottomEndRadius: 50,
+              borderBottomStartRadius: 50,
             },
-            headerTitleStyle: { color: "#fff", fontSize: 25 },
+            headerTitleStyle: { color: "#fff", fontSize: 23 },
+            headerTitleAlign: "center",
+            headerTitleAllowFontScaling: true,
           }}
         />
         <Stack.Screen
@@ -33,13 +51,15 @@ export default function homeStack() {
           component={SchoolDetails}
           options={{
             headerStyle: {
-              //backgroundColor: "#222831",
-              backgroundColor: "#5647b2",
+              backgroundColor: "#8964e0",
               height: 100,
+
               borderBottomEndRadius: 50,
+              borderBottomStartRadius: 50,
             },
-            headerTitleStyle: { color: "#fff", fontSize: 25 },
-            headerTintColor: "#fff",
+            headerTitleStyle: { color: "#fff", fontSize: 23 },
+            headerTitleAlign: "center",
+            headerTitleAllowFontScaling: true,
           }}
         />
         <Stack.Screen
@@ -47,13 +67,15 @@ export default function homeStack() {
           component={Location}
           options={{
             headerStyle: {
-              backgroundColor: "#5647b2",
+              backgroundColor: "#8964e0",
               height: 100,
+
               borderBottomEndRadius: 50,
+              borderBottomStartRadius: 50,
             },
-            headerTitleStyle: { color: "#fff", fontSize: 25 },
-            headerTintColor: "#fff",
-            headerLeft: null,
+            headerTitleStyle: { color: "#fff", fontSize: 23 },
+            headerTitleAlign: "center",
+            headerTitleAllowFontScaling: true,
           }}
         />
         <Stack.Screen
@@ -61,13 +83,15 @@ export default function homeStack() {
           component={Scanner}
           options={{
             headerStyle: {
-              backgroundColor: "#5647b2",
+              backgroundColor: "#8964e0",
               height: 100,
-              borderBottomEndRadius: 40,
+
+              borderBottomEndRadius: 50,
+              borderBottomStartRadius: 50,
             },
-            headerTitleStyle: { color: "#fff", fontSize: 25 },
-            headerTintColor: "#fff",
-            headerLeft: null,
+            headerTitleStyle: { color: "#fff", fontSize: 23 },
+            headerTitleAlign: "center",
+            headerTitleAllowFontScaling: true,
           }}
         />
 
@@ -76,12 +100,15 @@ export default function homeStack() {
           component={Facilities}
           options={{
             headerStyle: {
-              backgroundColor: "#5647b2",
+              backgroundColor: "#8964e0",
               height: 100,
+
               borderBottomEndRadius: 50,
+              borderBottomStartRadius: 50,
             },
-            headerTitleStyle: { color: "#fff", fontSize: 25 },
-            headerTintColor: "#fff",
+            headerTitleStyle: { color: "#fff", fontSize: 23 },
+            headerTitleAlign: "center",
+            headerTitleAllowFontScaling: true,
           }}
         />
         <Stack.Screen
@@ -89,12 +116,15 @@ export default function homeStack() {
           component={Questions}
           options={{
             headerStyle: {
-              backgroundColor: "#5647b2",
+              backgroundColor: "#8964e0",
               height: 100,
+
               borderBottomEndRadius: 50,
+              borderBottomStartRadius: 50,
             },
-            headerTitleStyle: { color: "#fff", fontSize: 25 },
-            headerTintColor: "#fff",
+            headerTitleStyle: { color: "#fff", fontSize: 23 },
+            headerTitleAlign: "center",
+            headerTitleAllowFontScaling: true,
           }}
         />
         <Stack.Screen
@@ -102,12 +132,15 @@ export default function homeStack() {
           component={Camera}
           options={{
             headerStyle: {
-              backgroundColor: "#5647b2",
+              backgroundColor: "#8964e0",
               height: 100,
-              borderBottomEndRadius: 40,
+
+              borderBottomEndRadius: 50,
+              borderBottomStartRadius: 50,
             },
-            headerTitleStyle: { color: "#fff", fontSize: 25 },
-            headerTintColor: "#fff",
+            headerTitleStyle: { color: "#fff", fontSize: 23 },
+            headerTitleAlign: "center",
+            headerTitleAllowFontScaling: true,
           }}
         />
         {/*</Stack.Navigator> <Stack.Screen 
