@@ -232,7 +232,26 @@ export default function Facilities({ route, navigation }) {
           }}
           disabled={!allFilled}
           onPress={() => {
-            postreport(visitId);
+            Alert.alert(
+              "No Internet Connection Found!",
+              "Data will be uploaded when the internet connection is found",
+              [
+                {
+                  text: "Cancel",
+                  onPress: () => null,
+                  style: "cancel",
+                },
+                {
+                  text: "YES",
+                  onPress: () => {
+                    setTimeout(() => {
+                      postreport(visitId);
+                      alert("ReportData has been uploaded successfully!");
+                    }, 20000);
+                  },
+                },
+              ]
+            );
             Toast();
             navigation.popToTop();
           }}

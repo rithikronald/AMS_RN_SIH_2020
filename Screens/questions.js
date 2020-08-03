@@ -375,7 +375,7 @@ export default function Questions({ route, navigation }) {
               style={{
                 width: "30%",
                 height: 50,
-                backgroundColor: "#96bb7c",
+                backgroundColor: "#8964e0",
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: 10,
@@ -413,7 +413,7 @@ export default function Questions({ route, navigation }) {
                 setModal(false);
               }}
             >
-              <Text style={{ color: "#fff", fontSize: 20 }}>Back</Text>
+              <Text style={{ color: "#fff", fontSize: 20 }}>Cancel</Text>
             </TouchableOpacity>
           </View>
         </Card>

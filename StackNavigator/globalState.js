@@ -23,12 +23,23 @@ export const GlobalState = (props) => {
         console.log(d);
         setFinalReport([]);
         setFinalReview([]);
+        deleteLocal();
       })
       .catch((error) => {
         console.log(error);
       });
   }
+  const deleteLocal = async () => {
+    let keys = [];
+    try {
+      await AsyncStorage.removeItem("@isEngaged");
 
+      keys = await AsyncStorage.getAllKeys();
+      console.log(keys);
+    } catch (e) {
+      // read key error
+    }
+  };
   const getLocalallquestionsList = async () => {
     try {
       const allquestionsList = await AsyncStorage.getItem("@allquestionsList");
@@ -81,6 +92,7 @@ export const GlobalState = (props) => {
         getLocalallquestionsList,
         allquestionsList,
         setallquestionsList,
+        deleteLocal,
         storeLocal,
         schoolData,
         SetSchoolData,
@@ -90,3 +102,26 @@ export const GlobalState = (props) => {
     </GlobalContext.Provider>
   );
 };
+
+/*
+ Alert.alert(
+              "No Internet Connection Found!",
+              "Data will be uploaded when the internet connection is found",
+              [
+                {
+                  text: "Cancel",
+                  onPress: () => null,
+                  style: "cancel",
+                },
+                {
+                  text: "YES",
+                  onPress: () => {
+                    setTimeout(() => {
+                      postreport(visitId);
+                      alert("ReportData has been uploaded successfully!");
+                    }, 20000);
+                  },
+                },
+              ]
+            );
+*/

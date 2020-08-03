@@ -81,7 +81,7 @@ export default function App({ route, navigation }) {
         "You are on the Wrong location . Pls check your Location & try again"
       );
 
-      navigation.navigate("Home");
+      navigation.navigate("Pending Visits");
     }
   };
 
