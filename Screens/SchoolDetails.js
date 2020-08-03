@@ -47,9 +47,9 @@ export default function clgDetails({ route, navigation }) {
           alignSelf: "center",
           flex: 1,
           marginTop: "9%",
-          padding: 20,
-          height: 180,
-          width: 300,
+          padding: 40,
+          height: 150,
+          width: 270,
         }}
         source={require("../assets/avatar_big.png")}
       />

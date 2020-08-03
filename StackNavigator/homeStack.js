@@ -69,10 +69,10 @@ export default function homeStack() {
           options={{
             headerStyle: {
               backgroundColor: "#8964e0",
-              height: 100,
+              height: 80,
 
-              borderBottomEndRadius: 50,
-              borderBottomStartRadius: 50,
+              // borderBottomEndRadius: 50,
+              // borderBottomStartRadius: 50,
             },
             headerTitleStyle: { color: "#fff", fontSize: 23 },
             headerTitleAlign: "center",

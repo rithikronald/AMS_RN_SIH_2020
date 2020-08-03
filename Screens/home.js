@@ -14,7 +14,7 @@ import Feather from "react-native-vector-icons/Feather";
 
 var url = require("../assets/constants").url;
 const axios = require("axios");
-const visitId = "da4a679b-4416-43a1-925f-c94a74b16c1b";
+const mId = "da4a679b-4416-43a1-925f-c94a74b16c1b";
 export default function home({ navigation }) {
   const {
     getLocalallquestionsList,
@@ -28,7 +28,7 @@ export default function home({ navigation }) {
   } = useContext(GlobalContext);
   const getCompletedlist = () => {
     axios
-      .get(url + "completedschoolsv2/" + visitId)
+      .get(url + "completedschoolsv2/" + mId)
       .then((res) => {
         // console.log(res.data);
 
@@ -44,7 +44,7 @@ export default function home({ navigation }) {
 
   const getPendinglist = () => {
     axios
-      .get(url + "visitlistv2/" + visitId)
+      .get(url + "visitlistv2/" + mId)
       .then((res) => {
         // console.log(res.data);
 
@@ -174,9 +174,7 @@ export default function home({ navigation }) {
   }, []);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, padding: "3%", backgroundColor: "#f7f7f7" }}
-    >
+    <SafeAreaView style={{ flex: 1, padding: "3%", backgroundColor: "#fff" }}>
       {/*
       <Text
       style={{
