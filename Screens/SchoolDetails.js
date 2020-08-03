@@ -98,7 +98,7 @@ export default function clgDetails({ route, navigation }) {
           paddingBottom: "5%",
         }}
         onPress={() => {
-          navigation.push("Location", { visitId: visitId });
+          navigation.push("Facilities", { visitId: visitId });
         }}
       >
         <Text
