@@ -9,6 +9,7 @@ import Camera from "../Screens/camera";
 import Facilities from "../Screens/facilities";
 import Questions from "../Screens/questions";
 import Storage from "../Screens/asyncStorage";
+import Login from "../Screens/loginScreen";
 
 const Stack = createStackNavigator();
 
@@ -16,7 +17,7 @@ export default function homeStack() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="LOGIN"
         options={{
           headerStyle: {
             backgroundColor: "#8964e0",
@@ -31,7 +32,7 @@ export default function homeStack() {
         }}
       >
         <Stack.Screen
-          name="PENDING VISITS"
+          name="Pending Visits"
           component={Home}
           options={{
             headerStyle: {
@@ -130,6 +131,22 @@ export default function homeStack() {
         <Stack.Screen
           name="Camera"
           component={Camera}
+          options={{
+            headerStyle: {
+              backgroundColor: "#8964e0",
+              height: 100,
+
+              borderBottomEndRadius: 50,
+              borderBottomStartRadius: 50,
+            },
+            headerTitleStyle: { color: "#fff", fontSize: 23 },
+            headerTitleAlign: "center",
+            headerTitleAllowFontScaling: true,
+          }}
+        />
+        <Stack.Screen
+          name="LOGIN"
+          component={Login}
           options={{
             headerStyle: {
               backgroundColor: "#8964e0",

@@ -139,7 +139,7 @@ export default function Questions({ route, navigation }) {
   }
 
   return (
-    <View style={{ flex: 1, padding: "2%", backgroundColor: "#f7f7f7" }}>
+    <View style={{ flex: 1, padding: "2%", backgroundColor: "#fff" }}>
       <Text
         style={{
           fontSize: 30,
@@ -159,6 +159,7 @@ export default function Questions({ route, navigation }) {
               margin: "3%",
               padding: "3%",
               backgroundColor: "#DCE3E6",
+              borderRadius: 20,
             }}
             key={item.key}
           >
@@ -310,7 +311,7 @@ export default function Questions({ route, navigation }) {
               width: "60%",
               height: 50,
               // backgroundColor: "#96bb7c",
-              backgroundColor: "#ffbe00",
+              backgroundColor: "#8964e0",
               alignItems: "center",
               justifyContent: "center",
               borderRadius: 10,
@@ -346,7 +347,7 @@ export default function Questions({ route, navigation }) {
             padding: "3%",
             borderRadius: 10,
             top: 120,
-            backgroundColor: "#ebecf1",
+            backgroundColor: "#DCE3E6",
           }}
         >
           <Text style={{ fontSize: 24, fontWeight: "bold", margin: "2%" }}>
