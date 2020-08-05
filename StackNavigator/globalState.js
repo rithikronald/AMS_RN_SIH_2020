@@ -12,6 +12,7 @@ export const GlobalState = (props) => {
   const [schoolData, SetSchoolData] = useState([]);
   const [allquestionsList, setallquestionsList] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [completedList, setCompletedlist] = useState([]);
 
   function postreport(visitId) {
     axios
@@ -96,6 +97,8 @@ export const GlobalState = (props) => {
         storeLocal,
         schoolData,
         SetSchoolData,
+        completedList,
+        setCompletedlist,
       }}
     >
       {props.children}

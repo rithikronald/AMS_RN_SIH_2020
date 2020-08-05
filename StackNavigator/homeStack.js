@@ -8,6 +8,7 @@ import Scanner from "../Screens/scanner";
 import Camera from "../Screens/camera";
 import Facilities from "../Screens/facilities";
 import Questions from "../Screens/questions";
+import CompletedList from "../Screens/CompletedList";
 import Storage from "../Screens/asyncStorage";
 import Login from "../Screens/loginScreen";
 
@@ -47,6 +48,23 @@ export default function homeStack() {
             headerTitleAllowFontScaling: true,
           }}
         />
+        <Stack.Screen
+          name="Completed Visits"
+          component={CompletedList}
+          options={{
+            headerStyle: {
+              backgroundColor: "#8964e0",
+              height: 100,
+
+              borderBottomEndRadius: 50,
+              borderBottomStartRadius: 50,
+            },
+            headerTitleStyle: { color: "#fff", fontSize: 23 },
+            headerTitleAlign: "center",
+            headerTitleAllowFontScaling: true,
+          }}
+        />
+
         <Stack.Screen
           name="School Details"
           component={SchoolDetails}

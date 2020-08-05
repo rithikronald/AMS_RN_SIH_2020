@@ -25,6 +25,8 @@ export default function home({ navigation }) {
     setFinalReport,
     finalReview,
     setFinalReview,
+    completedList,
+    setCompletedlist,
   } = useContext(GlobalContext);
   const getCompletedlist = () => {
     axios
@@ -74,17 +76,6 @@ export default function home({ navigation }) {
       });
   };
 
-  // const storeLocal = async (value, name) => {
-  //   try {
-  //     await AsyncStorage.setItem("@" + name, JSON.stringify(value)).then(
-  //       console.log("storing local" + name)
-  //     );
-  //   } catch (e) {
-  //     // saving error
-  //     console.log("error in storing local" + name);
-  //     console.log(e);
-  //   }
-  // };
   const getLocalpendinglist = async () => {
     try {
       const localPendinglist = await AsyncStorage.getItem("@pendingList");
@@ -141,8 +132,6 @@ export default function home({ navigation }) {
     }
   };
   const [pendingList, setPendinglist] = useState([]);
-  const [completedList, setCompletedlist] = useState([]);
-  // const [allquestionsList, setallquestionsList] = useState([]);
 
   const getAllKeys = async () => {
     let keys = [];
@@ -215,7 +204,9 @@ export default function home({ navigation }) {
           alignSelf: "flex-end",
           // marginTop: "10%"
         }}
-        onPress={() => {}}
+        onPress={() => {
+          navigation.push("Completed Visits");
+        }}
       >
         <Feather name="arrow-right" size={30} color="#FBFCFF" />
       </TouchableOpacity>
