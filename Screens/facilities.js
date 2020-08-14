@@ -28,6 +28,7 @@ export default function Facilities({ route, navigation }) {
     allFilled,
     postreport,
     allquestionsList,
+    mergeIsengaged,
     getLocalquestions,
     setallquestionsList,
   } = useContext(GlobalContext);
@@ -35,6 +36,17 @@ export default function Facilities({ route, navigation }) {
     ToastAndroid.show("Report Submitted Sucessfully ", ToastAndroid.SHORT);
   }
 
+  removeIsengaged = async () => {
+    try {
+      await AsyncStorage.removeItem("@isEngaged");
+    } catch (e) {
+      console.log(e);
+      console.log("cannot delete is engaged");
+      // remove error
+    }
+
+    console.log("Done.");
+  };
   useEffect(() => {
     // getLocalquestions();
     setCategories(allquestionsList);
@@ -232,7 +244,35 @@ export default function Facilities({ route, navigation }) {
           }}
           disabled={!allFilled}
           onPress={() => {
-            Alert.alert(
+            NetInfo.fetch().then((state) => {
+              // console.log("Connection type", state.type);
+              // console.log("Is connected?", state.isConnected);
+              // console.log("Is internet available?", state.isInternetReachable);
+              isInternetavailable(state.isInternetReachable);
+              if (state.isInternetReachable) {
+                postreport(visitId);
+                removeIsengaged();
+              } else {
+                mergeIsengaged();
+              }
+            });
+            Toast();
+            navigation.popToTop();
+          }}
+        >
+          <Text style={{ color: "#fff", fontSize: 20 }}>Submit</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+{
+  /*
+
+
+
+  Alert.alert(
               "No Internet Connection Found!",
               "Data will be uploaded when the internet connection is found",
               [
@@ -252,19 +292,6 @@ export default function Facilities({ route, navigation }) {
                 },
               ]
             );
-            Toast();
-            navigation.popToTop();
-          }}
-        >
-          <Text style={{ color: "#fff", fontSize: 20 }}>Submit</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-{
-  /*
 <TouchableOpacity style={{ opacity: 16 }}>
             <Card
               style={{

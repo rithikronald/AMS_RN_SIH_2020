@@ -1,7 +1,6 @@
 import React, { useState, createContext, useEffect } from "react";
 import AsyncStorage from "@react-native-community/async-storage";
-
-// import Axios from "axios";
+import NetInfo from "@react-native-community/netinfo";
 const url = require("../assets/constants").url;
 const axios = require("axios");
 export const GlobalContext = createContext();
@@ -67,6 +66,27 @@ export const GlobalState = (props) => {
     }
   };
 
+  const mergeIsengaged = async (obj) => {
+    try {
+      await AsyncStorage.mergeItem("@isEngaged", JSON.stringify(obj));
+
+      // read merged item
+      const currentStatus = await AsyncStorage.getItem("@isEngaged");
+
+      console.log(currentStatus);
+    } catch (error) {
+      console.log("Error merging ");
+      console.log(error);
+    }
+  };
+  const unsubscribe = NetInfo.addEventListener((state) => {
+    console.log("Connection type", state.type);
+    // console.log("Is connected?", state.isConnected);
+    console.log("Is connected?", state.isInternetReachable);
+    if (state.isInternetReachable) {
+    }
+  });
+
   const categoryFilled = finalReport.map(({ categoryName }) => categoryName);
 
   const [allFilled, setAllFilled] = useState(false);
@@ -74,6 +94,10 @@ export const GlobalState = (props) => {
   useEffect(() => {
     setAllFilled(categoryFilled.length === categories.length);
   }, [categoryFilled]);
+
+  useEffect(() => {
+    unsubscribe();
+  });
 
   const isCategoryFilled = (category) => {
     return categoryFilled.includes(category);
@@ -99,6 +123,7 @@ export const GlobalState = (props) => {
         SetSchoolData,
         completedList,
         setCompletedlist,
+        mergeIsengaged,
       }}
     >
       {props.children}

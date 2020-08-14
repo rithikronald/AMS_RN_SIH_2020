@@ -26,6 +26,7 @@ export default function Questions({ route, navigation }) {
     setFinalReport,
     finalReview,
     setFinalReview,
+    mergeIsengaged,
     allquestionsList,
     setallquestionsList,
   } = useContext(GlobalContext);
@@ -69,19 +70,19 @@ export default function Questions({ route, navigation }) {
       });
   };
 
-  const mergeIsengaged = async (obj) => {
-    try {
-      await AsyncStorage.mergeItem("@isEngaged", JSON.stringify(obj));
+  // const mergeIsengaged = async (obj) => {
+  //   try {
+  //     await AsyncStorage.mergeItem("@isEngaged", JSON.stringify(obj));
 
-      // read merged item
-      const currentStatus = await AsyncStorage.getItem("@isEngaged");
+  //     // read merged item
+  //     const currentStatus = await AsyncStorage.getItem("@isEngaged");
 
-      console.log(currentStatus);
-    } catch (error) {
-      console.log("Error merging ");
-      console.log(error);
-    }
-  };
+  //     console.log(currentStatus);
+  //   } catch (error) {
+  //     console.log("Error merging ");
+  //     console.log(error);
+  //   }
+  // };
 
   const [answersState, setAnswersState] = useState([]);
 

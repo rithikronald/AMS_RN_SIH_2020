@@ -147,9 +147,9 @@ export default function home({ navigation }) {
 
   useEffect(() => {
     NetInfo.fetch().then((state) => {
-      console.log("Connection type", state.type);
-      console.log("Is connected?", state.isConnected);
-      console.log("Is internet available?", state.isInternetReachable);
+      // console.log("Connection type", state.type);
+      // console.log("Is connected?", state.isConnected);
+      // console.log("Is internet available?", state.isInternetReachable);
       isInternetavailable(state.isInternetReachable);
     });
     checkInitialactivity();

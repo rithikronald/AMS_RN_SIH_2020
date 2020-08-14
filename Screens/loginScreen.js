@@ -27,9 +27,9 @@ export default function Login({ navigation }) {
           marginVertical: "5%",
           paddingLeft: 40,
         }}
-        placeholder="Username"
+        placeholder="Email"
         // defaultValue={answersState[index].answer}
-        onChangeText={(text) => {}}
+        onChangeText={(email) => this.setState({ email })}
       />
       <TextInput
         style={{
@@ -47,7 +47,7 @@ export default function Login({ navigation }) {
         secureTextEntry
         textContentType="password"
         // defaultValue={answersState[index].answer}
-        onChangeText={(text) => {}}
+        onChangeText={(password) => this.setState({ password })}
       />
       <TouchableOpacity
         style={{
